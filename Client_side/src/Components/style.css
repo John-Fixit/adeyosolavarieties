@@ -1,0 +1,230 @@
+.cont_fluid {
+    margin-top: 12vh !important;
+}
+
+.sub_carousel {
+    width: 30vh !important;
+}
+
+.products_row {
+    padding: 3vh 6vh !important;
+}
+.nav-link, .navbar-brand{
+    color: white !important;
+}
+.bgImg {
+    height: 30vh;
+    animation-name: topImg;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease;
+}
+
+.adminLog {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding: 3vh 0vh;
+    height: 56.4vh;
+    border-radius: 1vh;
+    color: orangered;
+    animation-name: topImg;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease;
+}
+.paginateBtns{
+    width: 80%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin-top: 5vh !important;
+}
+.paginateBtns a{
+    padding: 10px;
+    color: orangered !important;
+    border-radius: 5px;
+    border: 1px solid orangered;
+    text-decoration: none;
+    cursor: pointer;
+    margin: 8px;
+}
+.paginateBtns a:hover{
+    color: white !important;
+    background-color: orangered;
+}
+.paginateActive a{
+    background-color: orangered;
+    color: white !important;
+}
+
+@keyframes topImg {
+    0% {
+        background-image: url(../Images/business.png);
+    }
+
+    30% {
+        background-image: url(../Images/sticker.png);
+    }
+
+    50% {
+        background-image: url(../Images/christmas.png);
+    }
+
+    70% {
+        background-image: url(../Images/1473159158_Christmas-card-for-this-wonderful-season.png);
+    }
+
+    100% {
+        background-image: url(../Images/shirt.png);
+    }
+}
+
+.p-sm {
+    padding: 5vh 0vh;
+}
+
+.padding_nav {
+    background-color: orangered !important;
+    padding: 0vh 7vh !important;
+}
+
+.dropdown_menu {
+    border-top: 5px solid orangered !important;
+}
+
+.bgs {
+    background-color: orangered !important;
+}
+
+.textColor {
+    color: orangered !important;
+}
+
+.list:hover {
+    border-bottom: 1px solid orangered;
+    transform: translateX(10px);
+    width: 200px;
+}
+
+.btnbg {
+    background-color: orangered !important;
+}
+.btnHover:hover{
+    background-color: whitesmoke !important;
+    color: orangered !important;
+    transition: 0.2s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+    border: 1px solid orangered;
+}
+
+.small_text {
+    font-size: 2vh;
+}
+
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+    background-color: orangered;
+    color: white;
+}
+
+.landingpageText {
+    padding: 2vh 5vh;
+    font-size: 3vh;
+    animation-name: landingpageImg;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease;
+    height: 60vh;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.spinner-border {
+    color: orangered;
+}
+
+.form-control:focus {
+    border-color: orangered !important;
+    box-shadow: inset 0 2px 1px rgba(138, 96, 96, 0.075), 0 0 8px #d4542d !important;
+}
+
+@keyframes landingpageImg {
+    0% {
+        background-image: url(../Images/bgImg5.png);
+    }
+
+    40% {
+        background-image: url(../Images/christmas.png);
+    }
+
+    70% {
+        background-image: url(../Images/sticker.png);
+    }
+
+    80% {
+        background-image: url(../Images/printing.png);
+    }
+
+    100% {
+        background-image: url(../Images/shirt.png);
+    }
+}
+
+.spinner-border {
+    margin: auto;
+}
+
+.arr_left:hover {
+    padding-left: 2vh;
+}
+.active{
+    background-color: white;
+    color: orangered !important;
+    border-radius: 5px;
+}
+
+@media screen and (max-width: 890px) and (min-width: 50px) {
+ 
+    .carousel_img {
+        height: 40vh !important;
+    }
+
+    .products_row {
+        padding: 3vh 0vh !important;
+    }
+
+
+    .padding_nav {
+        padding: 2vh 0vh !important;
+    }
+
+    .card_cont {
+        width: 100% !important;
+    }
+
+    .p-sm {
+        padding: 0vh 0vh;
+    }
+
+    .landingpageText {
+        padding: 2vh 0vh;
+        height: 40vh;
+    }
+    .uploadedCard{
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .adminLog {
+        height: 30vh;
+        font-size: 2vh;
+    }
+
+    .landingpageText {
+        padding: 0vh 0vh;
+        font-size: 2.5vh;
+    }
+}
