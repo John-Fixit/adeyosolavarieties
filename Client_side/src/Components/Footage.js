@@ -8,7 +8,7 @@ function Footage() {
                 <div className="row pb-2">
                     <div className="col-md-12">
                         <div className="mb-2 text-center">
-                            <a href='https://adeniranadeyosolaesther' className="me-4 textColor">
+                            <a href='' className="me-4 textColor">
                                 <FaFacebook size='4vh' />
                             </a>
                             <a href='https://wa.me/message/U27MOKYLZN6NC1' className="me-4 textColor">

@@ -36,7 +36,7 @@ function CustomerList({ staff, adminDetail }) {
               <th>Contact</th>
               <th>Username</th>
               <th>Role</th>
-              <th>Added By</th>
+              <th>Registered By</th>
               <th>Delete</th>
             </thead>
             <tbody>

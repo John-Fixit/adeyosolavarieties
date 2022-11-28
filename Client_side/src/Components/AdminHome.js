@@ -160,24 +160,20 @@ function AdminHome({ staff }) {
               data-bs-target="#carouselExampleCaptions"
               data-bs-slide-to="0"
               className="active"
-              aria-current="true"
-              aria-label="Slide 1"
             ></button>
             <button
               type="button"
               data-bs-target="#carouselExampleCaptions"
               data-bs-slide-to="1"
-              aria-label="Slide 2"
             ></button>
             <button
               type="button"
               data-bs-target="#carouselExampleCaptions"
               data-bs-slide-to="2"
-              aria-label="Slide 3"
             ></button>
           </div>
           <div className="carousel-inner">
-            <div className="carousel-item active">
+            <div className="carousel-item">
               <div className="d-flex">
                 <img src={img1} className="d-block" width="25%" alt="..." />
                 <img src={img2} className="d-block" width="25%" alt="..." />
@@ -246,9 +242,9 @@ function AdminHome({ staff }) {
                 </h3>
                 <div className="progress mt-3">
                   <div
-                    className="progress-bar progress-bar-striped progress-bar-animated bg-danger ps-1 pe-3"
+                    className="progress-bar progress-bar-striped progress-bar-animated ps-1 pe-3"
                     role="progressbar"
-                    style={{ width: `${staff.length}%` }}
+                    style={{ width: `${staff.length}%`, backgroundColor: '#060537' }}
                   >
                     {staff.length}%
                   </div>
@@ -256,15 +252,15 @@ function AdminHome({ staff }) {
               </div>
             </div>
             <div className="col-md-6 col-sm-12 mt-3 ">
-              <div className="card shadow h-100 p-3 text-white btnbg opacity-75">
+              <div className="card shadow h-100 p-3 textColor">
                 <FaCartPlus size="4vh" className="mx-auto" />
                 <h3 className="card-title">
                   Total Products :{" "}
-                  <span className="small_tex">{products.length}</span>
+                  <span className="">{products.length}</span>
                 </h3>
                 <div className="progress mt-3">
                   <div
-                    className="progress-bar progress-bar-striped progress-bar-animated ps-1 pe-3"
+                    className="progress-bar progress-bar-striped bgs progress-bar-animated ps-1 pe-3"
                     role="progressbar"
                     style={{ width: `${products.length}%` }}
                   >
@@ -284,11 +280,8 @@ function AdminHome({ staff }) {
           </div>
         ) : (
           <div className="col-sm-12 products_row">
-            <p className="card-header text-center text-muted fs-4">
-              All Products Available
-            </p>
-            <p className="bgs px-2 fs-5 text-light text-center rounded-3">
-              Products available in the store
+            <p className="bgs p-2 fs-5 text-light text-center rounded-3">
+            Products available in the store
             </p>
             <div className="row">
               {displayProducts}

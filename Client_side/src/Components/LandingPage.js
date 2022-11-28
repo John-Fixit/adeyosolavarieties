@@ -30,7 +30,7 @@ function LandingPage() {
     });
   }, []);
   const getInTouch = (productTitle) => {
-    window.location.href = `https://wa.me/+2348137513395?text= I want to buy ${productTitle} from your store`;
+    window.location.href = `https://wa.me/+2348137513395?text= I want to purchase ${productTitle} from your store`;
   };
 
   const displayProduct = products.slice(productDisplayed, productDisplayed + productPerPage).map((eachProduct, index) => (
@@ -60,7 +60,7 @@ function LandingPage() {
             className="btn btnbg btnHover text-light w-100"
             onClick={() => getInTouch(eachProduct.title)}
           >
-            Buy
+            Purchase
           </button>
         </div>
       </div>
@@ -87,8 +87,7 @@ function LandingPage() {
     loop: true
   }}
 
-/>
-              
+/>  
               <a
                 href="https://wa.me/+2348137513395"
                 className="card-title text-decoration-none"
@@ -209,7 +208,7 @@ function LandingPage() {
       </div>
       <a
         href="https://wa.me/message/U27MOKYLZN6NC1"
-        className="btn bg-success mb-2 rounded-pill px-3 text-light py-1 position-fixed top-50 start-0"
+        className="btn bg-success mb-2 rounded-pill px-3 text-light py-1 position-fixed end-0" style={{bottom: '4vh'}}
       >
         <FaWhatsapp size="3.5vh" /> Chat with us
       </a>

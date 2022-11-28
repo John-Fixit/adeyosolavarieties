@@ -1,8 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./style.css";
+import { FaRegFileImage } from "react-icons/fa";
 import axios from "axios";
+import { Tooltip } from 'bootstrap/dist/js/bootstrap.esm.min.js'
 
 function UploadProducts({ adminDetail }) {
+
+  useEffect(() => {
+    Array.from(document.querySelectorAll('button[data-bs-toggle="tooltip"]'))
+    .forEach(tooltipNode => new Tooltip(tooltipNode))
+    });
+
   const [title, settitle] = useState("");
   const [price, setprice] = useState("");
   const [rate, setrate] = useState("");
@@ -15,6 +23,7 @@ function UploadProducts({ adminDetail }) {
   const [uploadedRate, setuploadedRate] = useState('')
   const [uploadedPrice, setuploadedPrice] = useState('')
   const [uploadedImg, setuploadedImg] = useState('')
+  const [selected, setselected] = useState(false)
   const newProductURI = "https://adeyosolavarieties.herokuapp.com/admin/products";
   const selectProduct = (e) => {
     const selectedProduct = e.target.files[0];
@@ -24,6 +33,7 @@ function UploadProducts({ adminDetail }) {
       setconvertedFile(() => {
         return reader.result;
       });
+      setselected(true)
     };
   };
   const uploadProduct = () => {
@@ -44,6 +54,8 @@ function UploadProducts({ adminDetail }) {
         settitle('')
         setrate('')
         setprice('')
+        setselected(false)
+        
       } else {
         setmessage(res.data.message);
         setstatus(res.data.status);
@@ -68,14 +80,17 @@ function UploadProducts({ adminDetail }) {
               <p className="alert alert-danger text-center">{message}</p>
             )}
             <div className="card p-2">
-              <div className="mt-2">
-                <label htmlFor="">Product Image</label>
+              <div className="mt-3">
+                <label htmlFor="productFile" className="uploadFileContainer w-100 py-4 my-3 p-3 text-center rounded" data-bs-toggle="tooltip" data-bs-placement="top" title="Select image to upload">
+                <FaRegFileImage size={`8vh`} className={`${selected? "textColor" : ""}`}/>
                 <input
                   type="file"
-                  className="form-control"
+                  className="form-control d-none"
                   placeholder="Title of The product"
+                  id="productFile"
                   onChange={(e) => selectProduct(e)}
                 />
+                </label>
               </div>
               <div className="form-floating mt-3">
                 <input
@@ -84,7 +99,7 @@ function UploadProducts({ adminDetail }) {
                   placeholder="Title of The product"
                   onChange={(e) => settitle(e.target.value)}
                 />
-                <label htmlFor="">Title of the product</label>
+                <label htmlFor="">Product Name</label>
               </div>
               <div className="row">
                 <div className="col-sm-6">
@@ -95,7 +110,7 @@ function UploadProducts({ adminDetail }) {
                       placeholder="Price of The product"
                       onChange={(e) => setprice(e.target.value)}
                     />
-                    <label htmlFor="">Price of the product</label>
+                    <label htmlFor="">Product price</label>
                   </div>
                 </div>
                 <div className="col-sm-6">
@@ -106,7 +121,7 @@ function UploadProducts({ adminDetail }) {
                       placeholder="Rate of The product"
                       onChange={(e) => setrate(e.target.value)}
                     />
-                    <label htmlFor="">Rate of the product</label>
+                    <label htmlFor="">Rate the product</label>
                   </div>
                 </div>
               </div>
@@ -134,7 +149,7 @@ function UploadProducts({ adminDetail }) {
               <div className="row">
                 <div className="mt-2 col-sm-6">
                   <p>Uploaded Product</p>
-                  <img src={uploadedImg} alt="imgage uploading" className="card-img-top"></img>
+                  <img src={uploadedImg} alt="loading" className="card-img-top"></img>
                 </div>
                 <div className="col-sm-6">
                   <p>Product title: {uploadedTitle}</p>

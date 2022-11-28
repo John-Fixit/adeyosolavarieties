@@ -10,7 +10,7 @@ function LandingNav() {
         });
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light fixed-top padding_nav bgs border-0 border-bottom border-secondary border-3">
+      <nav className="navbar navbar-expand-lg navbar-light fixed-top padding_nav bgs border-bottom border-secondary border-3">
         <div className="container-fluid">
           <Link to="/" className="navbar-brand fs-2 fw-bold " >
             <img

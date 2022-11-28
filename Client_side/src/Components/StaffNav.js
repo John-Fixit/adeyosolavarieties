@@ -31,17 +31,17 @@ function StaffNav({ firstname, profilePhoto }) {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav ms-auto mb-2 mb-lg-0 ms-5" style={{ marginLeft: '6vh' }}>
                     <li className="nav-item ms-3">
-                        <NavLink activeClassName="active" to='/staff/' className="nav-link fw-bold text-light " data-bs-toggle="tooltip" data-bs-placement="top" title="Admin Home">Home</NavLink>
+                        <NavLink activeClassName="active" to='/staff/' className="nav-link fw-bold  " data-bs-toggle="tooltip" data-bs-placement="top" title="Admin Home">Home</NavLink>
                     </li>
                     <li className="nav-item ms-3">
-                        <NavLink activeClassName="active" to='/staff/customers' className="nav-link fw-bold text-light" data-bs-toggle="tooltip" data-bs-placement="top" title="Staff list">Staff List</NavLink>
+                        <NavLink activeClassName="active" to='/staff/customers' className="nav-link fw-bold " data-bs-toggle="tooltip" data-bs-placement="top" title="Staff list">Staff List</NavLink>
                     </li>
                     <li className="nav-item ms-3">
-                        <NavLink activeClassName="active" to='/staff/addProduct' className="nav-link fw-bold text-light position-relative" data-bs-toggle="tooltip" data-bs-placement="top" title="Upload Product"> upload products </NavLink>
+                        <NavLink activeClassName="active" to='/staff/addProduct' className="nav-link fw-bold  position-relative" data-bs-toggle="tooltip" data-bs-placement="top" title="Upload Product"> Add New product </NavLink>
                     </li>
                 </ul>
                 <div className="nav-item dropdown ms-3">
-                    <button type="button" className="border-0 bgs text-light" id='navbarDropdown' data-bs-toggle="dropdown" aria-expanded="false">
+                    <button type="button" className="border-0 bgs" id='navbarDropdown' data-bs-toggle="dropdown" aria-expanded="false">
                     <img src={ profilePhoto == '' ? user : profilePhoto} className='card-img-top rounded-circle' style={{ width: '7vh', height: '7vh' }} alt='profile Pic'/><span className='text-light'> Hi, {firstname!== ""? firstname : 'user'}</span>
                     </button>
                     <ul className="dropdown-menu text-light" aria-labelledby="navbarDropdown">

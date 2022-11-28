@@ -68,7 +68,7 @@ function AdminPage() {
     <>
     <AdminNav firstname = {firstname} profilePhoto={profilePhoto}/>
         <Routes>
-            <Route path='/' element={<AdminHome staff={staff} products={products}/>}/>
+            <Route path='/home' element={<AdminHome staff={staff} products={products}/>}/>
             <Route path='/customers' element={<CustomerList staff={staff} adminDetail={adminDetail}/>}/>
             <Route path='/addProduct' element={<UploadProducts adminDetail={adminDetail}/>} />
             <Route path='/signup' element={<Adminsignup username={username}/>}/>

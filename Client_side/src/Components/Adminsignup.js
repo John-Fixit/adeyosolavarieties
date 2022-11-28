@@ -26,6 +26,7 @@ function Adminsignup({username}) {
       role: 'Admin'
     },
     onSubmit: (values) => {
+      console.log(values);
       setisGoing(true)
       axios.post(signupURI, values).then((res)=>{
         setisGoing(false)
