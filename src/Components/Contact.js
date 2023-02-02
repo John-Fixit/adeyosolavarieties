@@ -5,9 +5,10 @@ import * as yup from "yup";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { FaArrowAltCircleLeft} from "react-icons/fa";
+import { baseUrl } from './URL'
 
 function Contact() {
-  const contactURI = "https://adeyosolavarieties.herokuapp.com/user/contact";
+  const contactURI = `${baseUrl}/user/contact`;
   const [status, setstatus] = useState(false);
   const [message, setmessage] = useState("");
   const [isLoading, setisLoading] = useState(true);

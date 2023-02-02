@@ -4,10 +4,11 @@ import style from './style.css'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
 import axios from 'axios'
+import { baseUrl } from './URL'
 function StaffSignup() {
     const passRegex = /^[\w]{6,}$/
     const contactRegex = /^[0][\d]{10}$/
-    const signupURI = 'https://adeyosolavarieties.herokuapp.com/admin/staffSignup'
+    const signupURI = `${baseUrl}/admin/staffSignup`
     const [isLoading, setisLoading] = useState(true)
     const [message, setmessage] = useState('')
     const [status, setstatus] = useState(false)

@@ -4,10 +4,11 @@ import { FaCartArrowDown, FaRegBookmark, FaRegUser, FaUserFriends } from 'react-
 import { Link, useNavigate } from 'react-router-dom'
 import user from '../Images/user.PNG'
 import style from './style.css'
+import { baseUrl } from './URL'
 function AdminProfile({ adminDetail }) {
-    const profileURI = 'https://adeyosolavarieties.herokuapp.com/admin/save'
-    const PROFILEPHOTOURI = 'https://adeyosolavarieties.herokuapp.com/admin/uploadProfilePhoto'
-    const deleteAccURI = 'https://adeyosolavarieties.herokuapp.com/admin/deleteAccount'
+    const profileURI = `${baseUrl}/admin/save`
+    const PROFILEPHOTOURI = `${baseUrl}/uploadProfilePhoto`
+    const deleteAccURI = `${baseUrl}/admin/deleteAccount`
     const [firstname, setfirstname] = useState('')
     const [lastname, setlastname] = useState('')
     const [email, setemail] = useState('')

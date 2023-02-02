@@ -15,16 +15,24 @@ import {
   FaTrashAlt,
   FaUserAstronaut,
 } from "react-icons/fa";
+import { baseUrl } from "./URL";
+import {toast, ToastContainer} from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
+import useSWR from "swr"
+import Loader from "react-spinners/HashLoader";
+
+const fetcher = (...args)=> axios.get(...args)
 function AdminHome({ staff }) {
-  const deleteProductURI = "https://adeyosolavarieties.herokuapp.com/admin/deleteProduct";
-  const productURI = "https://adeyosolavarieties.herokuapp.com/user/products";
+
+  const {data, error} = useSWR(`${baseUrl}/user/products`, fetcher, {refreshInterval: 1000})
+
+  const deleteProductURI = `${baseUrl}/admin/deleteProduct`;
   const [message, setmessage] = useState("");
   const [status, setstatus] = useState(true);
   const [productToDelete, setproductToDelete] = useState("");
   const [productId, setproductId] = useState("");
   const [isComing, setisComing] = useState(true);
   const [pageNumber, setPageNumber] = useState(0);
-  const [products, setproducts] = useState([]);
   const [editTitle, seteditTitle] = useState("");
   const [editRate, seteditRate] = useState("");
   const [editPrice, seteditPrice] = useState("");
@@ -35,13 +43,6 @@ function AdminHome({ staff }) {
   useEffect(() => {
     AOS.init();
     AOS.refresh();
-    axios.get(productURI).then((res) => {
-      if (res.data.status) {
-        setproducts(() => {
-          return res.data.result;
-        });
-      }
-    });
   }, []);
 
   const modalOut = (productDetail) => {
@@ -74,7 +75,7 @@ function AdminHome({ staff }) {
     seteditId(thisProduct.Id);
   };
 
-  const displayProducts = products
+  const displayProducts = data?.data.result
     .slice(productDisplayed, productDisplayed + productPerPage)
     .map((eachProduct, index) => (
       <div className="col-lg-3 col-md-6 col-sm-12 mt-3" key={index}>
@@ -130,20 +131,20 @@ function AdminHome({ staff }) {
       </div>
     ));
 
-  const countPage = Math.ceil(products.length / productPerPage);
+  const countPage = Math.ceil(data?.data.result.length / productPerPage);
   const changePage = ({ nextOne }) => {
     setPageNumber(nextOne);
   };
   const saveChanges=()=>{
     const productChanges = {editTitle, editPrice, editRate, editId}
-    axios.post('https://adeyosolavarieties.herokuapp.com/admin/editProduct', productChanges).then((data)=>{
+    axios.post(`${baseUrl}/admin/editProduct`, productChanges).then((data)=>{
       if(data.data.status){
         window.location.reload()
       }else{
-        alert(data.data.message)
+        toast.error(data.data.message)
       }
     }).catch((err)=>{
-      console.log(err);
+      toast.error(err.message)     
     })
   }
   return (
@@ -237,7 +238,7 @@ function AdminHome({ staff }) {
               <div className="card shadow h-100 btnbg rounded p-3 text-white">
                 <FaUserAstronaut size="4vh" className="mx-auto" />
                 <h3 className="card-title">
-                  Total Staffs :{" "}
+                  Total Staff (s) :{" "}
                   <span className="small_tex">{staff.length}</span>
                 </h3>
                 <div className="progress mt-3">
@@ -255,30 +256,23 @@ function AdminHome({ staff }) {
               <div className="card shadow h-100 p-3 textColor">
                 <FaCartPlus size="4vh" className="mx-auto" />
                 <h3 className="card-title">
-                  Total Products :{" "}
-                  <span className="">{products.length}</span>
+                  Total Product (s) :{" "}
+                  <span className="">{data?.data.result.length}</span>
                 </h3>
                 <div className="progress mt-3">
                   <div
                     className="progress-bar progress-bar-striped bgs progress-bar-animated ps-1 pe-3"
                     role="progressbar"
-                    style={{ width: `${products.length}%` }}
+                    style={{ width: `${data?.data.result.length}%` }}
                   >
-                    {products.length} %
+                    {data?.data.result.length} %
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        {products.length < 1 ? (
-          <div className="text-center">
-            {" "}
-            <div className="spinner-border" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
-          </div>
-        ) : (
+        {!data? <Loader color="red" cssOverride={{margin: "0 auto"}}/> : (
           <div className="col-sm-12 products_row">
             <p className="bgs p-2 fs-5 text-light text-center rounded-3">
             Products available in the store
@@ -414,6 +408,7 @@ function AdminHome({ staff }) {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 }

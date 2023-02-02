@@ -10,8 +10,10 @@ import img2 from "../Images/bgImg2.jpg";
 import img3 from "../Images/bgImg3.jpg";
 import ReactPaginate from 'react-paginate'
 import Typewriter from 'typewriter-effect'
+import AdSense from "react-adsense"
+import { baseUrl } from './URL'
 function LandingPage() {
-  const productURI = "https://adeyosolavarieties.herokuapp.com/user/products";
+  const productURI = `${baseUrl}/user/products`;
   const [products, setproducts] = useState([]);
   const [isLoading, setisLoading] = useState(true);
   const [pageNumber, setpageNumber] = useState(0)
@@ -33,39 +35,41 @@ function LandingPage() {
     window.location.href = `https://wa.me/+2348137513395?text= I want to purchase ${productTitle} from your store`;
   };
 
-  const displayProduct = products.slice(productDisplayed, productDisplayed + productPerPage).map((eachProduct, index) => (
-    <div
-      className="col-lg-3 col-md-6 col-sm-12 mt-3"
-      data-aos="fade-down"
-      key={index}
-    >
-      <div className="card shadow p-2 h-100">
-        <img
-          src={eachProduct.image}
-          className="card-img-top  mx-auto shadow w-75"
-          alt="products"
-        />
-        <div className="card-body">
-          <h6 className="card-title text-start">
-            {eachProduct.title}
-          </h6>
-          <p className="rate">RATE: {eachProduct.rating}</p>
-          <p className="card-text text-start">
-            Price : ₦{eachProduct.price} <span>per product</span>
-          </p>
-        </div>
-        <div className="card-footer" data-aos="fade-out-top">
-          <button
-            type="button"
-            className="btn btnbg btnHover text-light w-100"
-            onClick={() => getInTouch(eachProduct.title)}
-          >
-            Purchase
-          </button>
+  const displayProduct =
+  products.slice(productDisplayed, productDisplayed + productPerPage).map((eachProduct, index) =>(
+       <div
+        className="col-lg-3 col-md-6 col-sm-12 mt-3"
+        data-aos="fade-down"
+        key={index}
+      >
+        <div className="card shadow p-2 h-100">
+          <img
+            src={eachProduct.image}
+            className="card-img-top  mx-auto shadow w-75"
+            alt="products"
+          />
+          <div className="card-body">
+            <h6 className="card-title text-start">
+              {eachProduct.title}
+            </h6>
+            <p className="rate">RATE: {eachProduct.rating}</p>
+            <p className="card-text text-start">
+              Price : ₦{eachProduct.price} <span>per product</span>
+            </p>
+          </div>
+          <div className="card-footer" data-aos="fade-out-top">
+            <button
+              type="button"
+              className="btn btnbg btnHover text-light w-100"
+              onClick={() => getInTouch(eachProduct.title)}
+            >
+              Purchase
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  ))
+
+    ))
   const countPage = Math.ceil(products.length/productPerPage)
 
     const changePage =({selected})=>{
@@ -184,23 +188,32 @@ function LandingPage() {
               />
           </p>
           <div className="row">
-            <p className="card-header text-center text-muted fs-4">
-              Products Available
+            <p className="card-header text-center text-muted fs-5">
+              {
+                products.length?"Product Available": ""
+              }
             </p>
             {isLoading ? (
               <div className="spinner-border" role="status">
                 <span className="visually-hidden">Loading...</span>
               </div>
             ) : (
-              <div className="row">{displayProduct} 
-                <ReactPaginate
+              <div className="row">
+                {
+                  products.length?<div>
+                  {displayProduct} 
+                   <ReactPaginate
                   previousLabel={'Previous'}
                   nextLabel={'Next'}
                   pageCount={countPage}
                   onPageChange={changePage}
                   containerClassName={'paginateBtns'}
                   activeClassName={'paginateActive'}
-                />
+                /></div>:
+                <div className="text-center my-auto">
+                <h3>No Product Available</h3>
+                </div>
+                }
               </div>
             )}
           </div>
@@ -212,6 +225,11 @@ function LandingPage() {
       >
         <FaWhatsapp size="3.5vh" /> Chat with us
       </a>
+      {/* <AdSense.Google
+    client='ca-pub-7640795686308536'
+    slot='5347541763'
+    
+/> */}
     </>
   );
 }

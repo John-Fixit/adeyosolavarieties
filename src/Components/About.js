@@ -1,7 +1,7 @@
 import React from "react";
 import { FaArrowRight, FaPen } from "react-icons/fa";
 import { Link } from "react-router-dom";
-
+import "./getInTouchBtn.css"
 function About() {
   return (
     <>
@@ -37,9 +37,10 @@ function About() {
         </div>
         <Link
           to="/contact"
-          className="text-decoration-none btn btnbg text-light fw-bold mt-2 ms-3 arr_left"
+          className="button text-decoration-none btn btnbg text-light mx-3 fw-bold arr_left"
         >
           Get in Touch <span className="arr_left"><FaArrowRight /></span>
+
         </Link>
       </div>
     </>

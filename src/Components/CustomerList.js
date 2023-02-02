@@ -2,8 +2,9 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { FaTrashAlt } from 'react-icons/fa';
 import style from './style.css'
+import { baseUrl } from './URL'
 function CustomerList({ staff, adminDetail }) {
-  const deleteStaffURI = 'https://adeyosolavarieties.herokuapp.com/admin/deleteStaff'
+  const deleteStaffURI = `${baseUrl}/admin/deleteStaff`
 
   const staffDlt = ({ staffId }) => {
     if (adminDetail._id == staffId) {

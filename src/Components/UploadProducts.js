@@ -3,7 +3,8 @@ import style from "./style.css";
 import { FaRegFileImage } from "react-icons/fa";
 import axios from "axios";
 import { Tooltip } from 'bootstrap/dist/js/bootstrap.esm.min.js'
-
+import { baseUrl } from "./URL";
+import {toast, ToastContainer} from "react-toastify"
 function UploadProducts({ adminDetail }) {
 
   useEffect(() => {
@@ -24,7 +25,7 @@ function UploadProducts({ adminDetail }) {
   const [uploadedPrice, setuploadedPrice] = useState('')
   const [uploadedImg, setuploadedImg] = useState('')
   const [selected, setselected] = useState(false)
-  const newProductURI = "https://adeyosolavarieties.herokuapp.com/admin/products";
+  const newProductURI = `${baseUrl}/admin/products`;
   const selectProduct = (e) => {
     const selectedProduct = e.target.files[0];
     const reader = new FileReader();
@@ -37,30 +38,36 @@ function UploadProducts({ adminDetail }) {
     };
   };
   const uploadProduct = () => {
-    setisGoing(true);
-    const fullname = adminDetail.firstname + " " + adminDetail.lastname;
-    const email = adminDetail.email;
-    const productInfo = { fullname, email, convertedFile, title, price, rate };
-    axios.post(newProductURI, productInfo).then((res) => {
-      setisLoading(false);
-      setisGoing(false);
-      if (res.data.status) {
-        setstatus(res.data.status)
-        setmessage(res.data.message);
-        setuploadedImg(res.data.productDetail.image)
-        setuploadedRate(res.data.productDetail.rating)
-        setuploadedPrice(res.data.productDetail.price)
-        setuploadedTitle(res.data.productDetail.title)
-        settitle('')
-        setrate('')
-        setprice('')
-        setselected(false)
-        
-      } else {
-        setmessage(res.data.message);
-        setstatus(res.data.status);
-      }
-    });
+
+    if(!!convertedFile && !!title && !!price){
+      setisGoing(true);
+      const fullname = adminDetail.firstname + " " + adminDetail.lastname;
+      const email = adminDetail.email;
+      const productInfo = { fullname, email, convertedFile, title, price, rate };
+      axios.post(newProductURI, productInfo).then((res) => {
+        setisLoading(false);
+        setisGoing(false);
+        if (res.data.status) {
+          setstatus(res.data.status)
+          setmessage(res.data.message);
+          setuploadedImg(res.data.productDetail.image)
+          setuploadedRate(res.data.productDetail.rating)
+          setuploadedPrice(res.data.productDetail.price)
+          setuploadedTitle(res.data.productDetail.title)
+          settitle('')
+          setrate('')
+          setprice('')
+          setselected(false)
+          
+        } else {
+          setmessage(res.data.message);
+          setstatus(res.data.status);
+        }
+      });
+    }
+    else{
+      toast.error("Please provide the required parameters for the product", {position: "top-center", theme: "colored"})
+    }
   };
   const okConfirm =()=>{
     window.location.reload()
@@ -90,14 +97,16 @@ function UploadProducts({ adminDetail }) {
                   id="productFile"
                   onChange={(e) => selectProduct(e)}
                 />
+                <p className={`${selected? "productSelected": "productNotSelected"}`}></p>
                 </label>
               </div>
               <div className="form-floating mt-3">
                 <input
                   type="text"
-                  className="form-control"
+                  className="form-control border-0"
                   placeholder="Title of The product"
                   onChange={(e) => settitle(e.target.value)}
+                  value={title}
                 />
                 <label htmlFor="">Product Name</label>
               </div>
@@ -106,9 +115,10 @@ function UploadProducts({ adminDetail }) {
                   <div className="form-floating mt-3">
                     <input
                       type="number"
-                      className="form-control"
+                      className="form-control border-0"
                       placeholder="Price of The product"
                       onChange={(e) => setprice(e.target.value)}
+                      value={price}
                     />
                     <label htmlFor="">Product price</label>
                   </div>
@@ -117,9 +127,10 @@ function UploadProducts({ adminDetail }) {
                   <div className="form-floating mt-3">
                     <input
                       type="number"
-                      className="form-control"
+                      className="form-control border-0"
                       placeholder="Rate of The product"
                       onChange={(e) => setrate(e.target.value)}
+                      value={rate}
                     />
                     <label htmlFor="">Rate the product</label>
                   </div>
@@ -164,6 +175,7 @@ function UploadProducts({ adminDetail }) {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 }

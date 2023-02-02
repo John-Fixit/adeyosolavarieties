@@ -8,9 +8,10 @@ import UploadProducts from "./UploadProducts";
 import AdminProfile from "./AdminProfile";
 import About from "./About";
 import Footage from "./Footage";
+import { baseUrl } from "./URL";
 function Staff() {
-  const getHomeURI = "https://adeyosolavarieties.herokuapp.com/admin/home";
-  const customerURI = "https://adeyosolavarieties.herokuapp.com/admin/customers";
+  const getHomeURI = `${baseUrl}/admin/home`;
+  const customerURI = `${baseUrl}/admin/customers`;
   const navigate = useNavigate();
   const [staff, setstaff] = useState([]);
   const [products, setproducts] = useState("");

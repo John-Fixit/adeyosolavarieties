@@ -19,7 +19,6 @@ function AdminNav({ firstname, profilePhoto }) {
             localStorage.removeItem('adminInfo')
             navigate('/admin_login')
         }
-       
     }
     return (
         <>
@@ -32,7 +31,7 @@ function AdminNav({ firstname, profilePhoto }) {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0 ms-5" style={{ marginLeft: '6vh' }}>
                             <li className="nav-item ms-3">
-                                <NavLink activeClassName="active" to='/admin/home' className="nav-link fw-bold  " data-bs-toggle="tooltip" data-bs-placement="top" title="Admin Home">Home</NavLink>
+                                <NavLink activeClassName="active" to='/admin/home' className="nav-link fw-bold " data-bs-toggle="tooltip" data-bs-placement="top" title="Admin Home"><span className='rounded-pill px-3'>Home</span></NavLink>
                             </li>
                             <li className="nav-item ms-3">
                                 <NavLink activeClassName="active" to='/admin/about' className="nav-link fw-bold  " data-bs-toggle="tooltip" data-bs-placement="top" title="Admin Home">About</NavLink>

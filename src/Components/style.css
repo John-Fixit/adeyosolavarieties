@@ -33,6 +33,10 @@
     animation-iteration-count: infinite;
     animation-timing-function: ease;
 }
+
+.form-floating{
+    border-bottom: 2px solid #d4542d;
+}
 .paginateBtns{
     width: 80%;
     height: 40px;
@@ -128,6 +132,9 @@
 .table-hover tbody tr:hover th {
     background-color: orangered;
     color: white;
+    transition: all 0.5s linear;
+    cursor: pointer;
+    border-radius: 2.5vh;
 }
 
 .landingpageText {
@@ -147,9 +154,16 @@
     color: orangered;
 }
 
+input[type=number]::-webkit-inner-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
 .form-control:focus {
     border-color: orangered !important;
-    box-shadow: inset 0 2px 1px rgba(138, 96, 96, 0.075), 0 0 8px #d4542d !important;
+    box-shadow: inset 0 2px 1px rgba(138, 96, 96, 0.075), 0 0 2px #d0b4ab !important;
 }
 
 @keyframes landingpageImg {
@@ -179,13 +193,15 @@
 }
 
 .arr_left:hover {
-    padding-left: 2vh;
+    padding-left: 3vh;
+    transition: 0.1s linear;
 }
 .active{
     background-color: white !important;
     color: orangered !important;
     border-bottom: 2px solid orangered !important;
     border-radius: 1.5vh;
+    text-transform: uppercase;
 }
 
 .uploadFileContainer{
@@ -249,6 +265,13 @@
     background-color: #ffcaa6;
     border-radius: .5rem;
     transition: .5s ease;
+   }
+
+   .productNotSelected::after{
+    content: "Choose Product to upload";
+   }
+   .productSelected::after{
+        content: "Product Selected";
    }
 
    .card-img-top:hover {
