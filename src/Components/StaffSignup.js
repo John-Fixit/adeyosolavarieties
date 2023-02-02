@@ -75,7 +75,7 @@ function StaffSignup() {
                 </div>
                 <div className='firstname'>
                   <div className='form-floating mt-2'>
-                    <input type='text' className='form-control' name='firstname' onChange={formik.handleChange} onBlur={formik.handleBlur}  value={formik.values.firstname} placeholder='firstname' />
+                    <input type='text' className='form-control border-0' name='firstname' onChange={formik.handleChange} onBlur={formik.handleBlur}  value={formik.values.firstname} placeholder='firstname' />
                     <label htmlFor=''>Firstname</label>
                   </div>
                   {
@@ -84,7 +84,7 @@ function StaffSignup() {
                 </div>
                 <div className='lastname'>
                   <div className='form-floating mt-2'>
-                    <input type='text' className='form-control' name='lastname' onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.lastname} placeholder='lastname' />
+                    <input type='text' className='form-control border-0' name='lastname' onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.lastname} placeholder='lastname' />
                     <label htmlFor=''>Lastname</label>
                   </div>
                   {
@@ -93,7 +93,7 @@ function StaffSignup() {
                 </div>
                 <div className='contact'>
                   <div className='form-floating mt-2'>
-                    <input type='text' className='form-control' name='contact' onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.contact} placeholder='Contact' />
+                    <input type='text' className='form-control border-0' name='contact' onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.contact} placeholder='Contact' />
                     <label htmlFor=''>Phone Contact</label>
                   </div>
                   {
@@ -102,7 +102,7 @@ function StaffSignup() {
                 </div>
                 <div className='email'>
                   <div className='form-floating mt-2'>
-                    <input type='text' className='form-control' name='email' onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.email} placeholder='Email address' />
+                    <input type='text' className='form-control border-0' name='email' onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.email} placeholder='Email address' />
                     <label htmlFor=''>Email Address</label>
                   </div>
                   {

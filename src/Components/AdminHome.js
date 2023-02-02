@@ -20,6 +20,8 @@ import {toast, ToastContainer} from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 import useSWR from "swr"
 import Loader from "react-spinners/HashLoader";
+import Skeleton from "react-skeleton"
+
 
 const fetcher = (...args)=> axios.get(...args)
 function AdminHome({ staff }) {
@@ -88,7 +90,7 @@ function AdminHome({ staff }) {
           <div className="card-body">
             <h6 className="card-title text-start">{eachProduct.title}</h6>
             <p className="card-text text-start">
-              Price : ₦{eachProduct.price} <span>per product</span>
+              Price : ₦{eachProduct.price}
             </p>
             <p className="rate">RATE: {eachProduct.rating}</p>
           </div>
@@ -110,7 +112,7 @@ function AdminHome({ staff }) {
             </button>
             <button
               type="button"
-              className="btn btnbg text-light w-100"
+              className="btn btnbg text-light w-100 btnHover"
               data-bs-toggle="modal"
               data-bs-target="#editModal"
               onClick={() =>
@@ -272,7 +274,32 @@ function AdminHome({ staff }) {
             </div>
           </div>
         </div>
-        {!data? <Loader color="red" cssOverride={{margin: "0 auto"}}/> : (
+        <div className="row">
+        {!data?
+        [1, 2, 3,2, 2 ,3].map((_)=>{
+          return <div className="col-lg-3 col-md-6 col-sm-12 mt-3" >
+    <div className="card shadow-lg p-2 h-100">
+    <Skeleton type="thumbnail" height={150} className="card-img-top"/>
+    
+      <div className="card-body">
+        <h6 className="card-title text-start">
+<Skeleton type="text-lg" width={280}/>
+        </h6>
+        <p className="card-text text-start">
+        <Skeleton type="text-lg" width={200}/>
+        </p>
+        <p className="rate">
+        <Skeleton type="text-md" width={180}/>
+        </p>
+      </div>
+      <div className="card-footer justify-content-between d-flex ">
+        <Skeleton width={`100%`} height={45}/>
+      </div>
+      <div className="btn-group"></div>
+    </div>
+  </div>
+        })
+        : (
           <div className="col-sm-12 products_row">
             <p className="bgs p-2 fs-5 text-light text-center rounded-3">
             Products available in the store
@@ -290,6 +317,7 @@ function AdminHome({ staff }) {
             </div>
           </div>
         )}
+</div>
 
         {status ? (
           <div

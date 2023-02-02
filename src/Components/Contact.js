@@ -38,19 +38,18 @@ function Contact() {
       });
     },
     validationSchema: yup.object({
-      senderName: yup.string().required("This field is Required"),
+      senderName: yup.string().required("Please insert your name"),
       senderEmail: yup
         .string()
-        .required("This field is Required")
+        .required("Email is Required for this action")
         .email("Please enter a valid email"),
-      senderAddress: yup.string().required("This field is Required"),
+      senderAddress: yup.string().required("Please input your address"),
       senderTitle: yup.string().required("This field is Required"),
       senderMessage: yup.string().required("This field is Required"),
     }),
   });
   return (
     <>
-   
       <div className="col-12 cont_fluid">
         <h2 className="btnbg text-center text-light py-2">
           Contact Adeyodola Varieties
@@ -69,7 +68,7 @@ function Contact() {
                 <div className="form-floating">
                   <input
                     type="text"
-                    className="form-control"
+                    className="form-control border-0"
                     placeholder="Name"
                     name="senderName"
                     onChange={formik.handleChange}
@@ -90,7 +89,7 @@ function Contact() {
                 <div className="form-floating">
                   <input
                     type="text"
-                    className="form-control"
+                    className="form-control border-0"
                     placeholder="Email"
                     name="senderEmail"
                     onChange={formik.handleChange}
@@ -113,7 +112,7 @@ function Contact() {
                 <div className="form-floating">
                   <input
                     type="text"
-                    className="form-control"
+                    className="form-control border-0"
                     placeholder="Address"
                     name="senderAddress"
                     onChange={formik.handleChange}
@@ -134,7 +133,7 @@ function Contact() {
                 <div className="form-floating">
                   <input
                     type="text"
-                    className="form-control"
+                    className="form-control border-0"
                     placeholder="Title"
                     name="senderTitle"
                     onChange={formik.handleChange}
@@ -161,6 +160,7 @@ function Contact() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.senderMessage}
+                  style={{resize: "none"}}
                 ></textarea>
                 <button
                   className="btn btnbg mt-3 text-light p-2 float-end"

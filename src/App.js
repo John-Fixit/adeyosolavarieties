@@ -6,10 +6,17 @@ import AdminSignin from './Components/AdminSignin'
 import AppLandingRoute from './Components/AppLandingRoute'
 import Staff from './Components/Staff'
 import StaffLogin from './Components/StaffLogin'
+import { SWRConfig } from 'swr'
+import axios from 'axios'
 function App() {
+
+  const fetcher = (...args)=> axios.get(...args) 
+
 
   return (
     <>
+
+    <SWRConfig value={{fetcher:fetcher}}>
       <Routes>
         <Route path='/*' element={<AppLandingRoute />} />
         <Route path='/admin_login' element={<AdminSignin />}/>
@@ -19,6 +26,7 @@ function App() {
         <Route path='*' element={<AppLandingRoute />} />
         
       </Routes>
+    </SWRConfig>
     </>
 
     //https://wa.me/<number>

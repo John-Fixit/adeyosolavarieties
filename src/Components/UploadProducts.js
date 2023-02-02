@@ -43,7 +43,7 @@ function UploadProducts({ adminDetail }) {
       setisGoing(true);
       const fullname = adminDetail.firstname + " " + adminDetail.lastname;
       const email = adminDetail.email;
-      const productInfo = { fullname, email, convertedFile, title, price, rate };
+      const productInfo = { fullname, email, convertedFile, title, price, rate: rate>5 ? 5 : rate };
       axios.post(newProductURI, productInfo).then((res) => {
         setisLoading(false);
         setisGoing(false);
@@ -77,6 +77,9 @@ function UploadProducts({ adminDetail }) {
     <>
       <div className="products_row cont_fluid">
         <h2 className="card-header text-center pt-2">Add New Product</h2>
+        <div className="alert alert-warning text-center">
+        NOTE: The maximum rate available is 5
+        </div>
         <div className="row mt-2 ">
           <div className="col-lg-6">
             {isLoading ? (
@@ -127,6 +130,7 @@ function UploadProducts({ adminDetail }) {
                   <div className="form-floating mt-3">
                     <input
                       type="number"
+                      max={5}
                       className="form-control border-0"
                       placeholder="Rate of The product"
                       onChange={(e) => setrate(e.target.value)}

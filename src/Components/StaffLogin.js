@@ -62,7 +62,7 @@ function StaffLogin() {
                 </div>
                 <div className='email'>
                   <div className='form-floating mt-4'>
-                    <input type='text' className='form-control' name='email' onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.email} placeholder='Email address' />
+                    <input type='text' className='form-control border-0' name='email' onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.email} placeholder='Email address' />
                     <label htmlFor=''>Email Address</label>
                   </div>
                   {
@@ -71,7 +71,7 @@ function StaffLogin() {
                 </div>
                 <div className='password'>
                   <div className='form-floating mt-4'>
-                    <input type='password' className='form-control' name='password' onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.password} placeholder='Private Key' />
+                    <input type='password' className='form-control border-0' name='password' onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.password} placeholder='Private Key' />
                     <label htmlFor=''>Private Key</label>
                   </div>
                   {

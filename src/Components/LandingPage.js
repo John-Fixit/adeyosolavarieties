@@ -8,36 +8,29 @@ import "aos/dist/aos.css";
 import img1 from "../Images/bgImg1.jpg";
 import img2 from "../Images/bgImg2.jpg";
 import img3 from "../Images/bgImg3.jpg";
-import ReactPaginate from 'react-paginate'
-import Typewriter from 'typewriter-effect'
-import AdSense from "react-adsense"
-import { baseUrl } from './URL'
+import ReactPaginate from "react-paginate";
+import Typewriter from "typewriter-effect";
+import AdSense from "react-adsense";
+import { baseUrl } from "./URL";
+import Skeleton from "react-skeleton";
+import useSWR from "swr";
 function LandingPage() {
-  const productURI = `${baseUrl}/user/products`;
-  const [products, setproducts] = useState([]);
-  const [isLoading, setisLoading] = useState(true);
-  const [pageNumber, setpageNumber] = useState(0)
+  const { data, error } = useSWR(`${baseUrl}/user/products`);
+  const [pageNumber, setpageNumber] = useState(0);
   const productPerPage = 12;
-  const productDisplayed = productPerPage * pageNumber
+  const productDisplayed = productPerPage * pageNumber;
   useEffect(() => {
     AOS.init();
     AOS.refresh();
-    axios.get(productURI).then((res) => {
-      setisLoading(false);
-      if (res.data.status) {
-        setproducts(() => {
-          return res.data.result;
-        }); 
-      }
-    });
   }, []);
   const getInTouch = (productTitle) => {
-    window.location.href = `https://wa.me/+2348137513395?text= I want to purchase ${productTitle} from your store`;
+    window.location.href = `https://wa.me/+2348137513395?text= I found ${productTitle} from your site and wanted to purchase it`;
   };
 
-  const displayProduct =
-  products.slice(productDisplayed, productDisplayed + productPerPage).map((eachProduct, index) =>(
-       <div
+  const displayProduct = data?.data.result
+    .slice(productDisplayed, productDisplayed + productPerPage)
+    .map((eachProduct, index) => (
+      <div
         className="col-lg-3 col-md-6 col-sm-12 mt-3"
         data-aos="fade-down"
         key={index}
@@ -49,9 +42,7 @@ function LandingPage() {
             alt="products"
           />
           <div className="card-body">
-            <h6 className="card-title text-start">
-              {eachProduct.title}
-            </h6>
+            <h6 className="card-title text-start">{eachProduct.title}</h6>
             <p className="rate">RATE: {eachProduct.rating}</p>
             <p className="card-text text-start">
               Price : ₦{eachProduct.price} <span>per product</span>
@@ -63,18 +54,17 @@ function LandingPage() {
               className="btn btnbg btnHover text-light w-100"
               onClick={() => getInTouch(eachProduct.title)}
             >
-              Purchase
+              Click Me
             </button>
           </div>
         </div>
       </div>
+    ));
+  const countPage = Math.ceil(data?.data.result.length / productPerPage);
 
-    ))
-  const countPage = Math.ceil(products.length/productPerPage)
-
-    const changePage =({selected})=>{
-      setpageNumber(selected)
-    }
+  const changePage = ({ selected }) => {
+    setpageNumber(selected);
+  };
 
   return (
     <>
@@ -82,16 +72,15 @@ function LandingPage() {
         <div className="products_row">
           <div className="landingpageText col-12">
             <p className="card-body col-lg-7 col-md-12 fw-bold">
-              <Typewriter 
-  options={{
-    strings: `Get your product online, it's fast and good to use. With this
+              <Typewriter
+                options={{
+                  strings: `Get your product online, it's fast and good to use. With this
     simple store site, you can purchase products of your choice. We
     offer good and quality product.`,
-    autoStart: true,
-    loop: true
-  }}
-
-/>  
+                  autoStart: true,
+                  loop: true,
+                }}
+              />
               <a
                 href="https://wa.me/+2348137513395"
                 className="card-title text-decoration-none"
@@ -182,46 +171,77 @@ function LandingPage() {
         </div>
         <div className="col-sm-12 products_row">
           <p className="bgs px-2 fs-5 text-light text-center">
-              <Typewriter 
-  options={{strings: `Get in touch with adeyosola varieties on whatsapp for your
-  interested products`, autoStart: true}}
-              />
+            <Typewriter
+              options={{
+                strings: `Get in touch with adeyosola varieties on whatsapp for your
+  interested products`,
+                autoStart: true,
+              }}
+            />
           </p>
           <div className="row">
             <p className="card-header text-center text-muted fs-5">
-              {
-                products.length?"Product Available": ""
-              }
+              {data?.data.result.length ? "Product Available" : ""}
             </p>
-            {isLoading ? (
-              <div className="spinner-border" role="status">
-                <span className="visually-hidden">Loading...</span>
+
+            {!data? (
+              Array(8).fill('skeleton').map((_) => {
+                return (
+                  <div className="col-lg-3 col-md-6 col-sm-12 mt-3">
+                    <div className="card shadow-lg p-2 h-100">
+                      <Skeleton
+                        type="thumbnail"
+                        height={150}
+                        className="card-img-top"
+                      />
+
+                      <div className="card-body">
+                        <h6 className="card-title text-start">
+                          <Skeleton type="text-lg" width={250} />
+                        </h6>
+                        <p className="card-text text-start">
+                          <Skeleton type="text-lg" width={200} />
+                        </p>
+                        <p className="rate">
+                          <Skeleton type="text-md" width={180} />
+                        </p>
+                      </div>
+                      <div className="card-footer justify-content-between d-flex ">
+                        <Skeleton width={`100%`} height={45} />
+                      </div>
+                      <div className="btn-group"></div>
+                    </div>
+                  </div>
+                );
+              })
+            ) : 
+              <div className="">
+                {data?.data.result.length ? (
+                  <div className="row">
+                    {displayProduct}
+                    <ReactPaginate
+                      previousLabel={"Previous"}
+                      nextLabel={"Next"}
+                      pageCount={countPage}
+                      onPageChange={changePage}
+                      containerClassName={"paginateBtns"}
+                      activeClassName={"paginateActive"}
+                    />
+                  </div>
+                ) : (
+                  <div className="text-center my-auto">
+                    <h3>No Product Available</h3>
+                  </div>
+                )}
               </div>
-            ) : (
-              <div className="row">
-                {
-                  products.length?<div>
-                  {displayProduct} 
-                   <ReactPaginate
-                  previousLabel={'Previous'}
-                  nextLabel={'Next'}
-                  pageCount={countPage}
-                  onPageChange={changePage}
-                  containerClassName={'paginateBtns'}
-                  activeClassName={'paginateActive'}
-                /></div>:
-                <div className="text-center my-auto">
-                <h3>No Product Available</h3>
-                </div>
-                }
-              </div>
-            )}
+            }
           </div>
         </div>
       </div>
       <a
         href="https://wa.me/message/U27MOKYLZN6NC1"
-        className="btn bg-success mb-2 rounded-pill px-3 text-light py-1 position-fixed end-0" style={{bottom: '4vh'}}
+        className="btn bg-success mb-2 rounded-pill px-3 text-light py-1 position-fixed end-0"
+        style={{ bottom: "4vh" }}
       >
         <FaWhatsapp size="3.5vh" /> Chat with us
       </a>

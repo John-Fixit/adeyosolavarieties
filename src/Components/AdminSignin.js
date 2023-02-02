@@ -64,7 +64,7 @@ function AdminSignin() {
                 </div>
                 <div className='email'>
                   <div className='form-floating mt-4'>
-                    <input type='text' className='form-control' name='email' onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.email} placeholder='Email address' />
+                    <input type='text' className='form-control border-0' name='email' onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.email} placeholder='Email address' />
                     <label htmlFor=''>Email Address</label>
                   </div>
                   {
@@ -73,7 +73,7 @@ function AdminSignin() {
                 </div>
                 <div className='password'>
                   <div className='form-floating mt-4'>
-                    <input type='password' className='form-control' name='password' onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.password} placeholder='password' />
+                    <input type='password' className='form-control border-0' name='password' onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.password} placeholder='password' />
                     <label htmlFor=''>Password</label>
                   </div>
                   {
@@ -82,7 +82,7 @@ function AdminSignin() {
                 </div>
                 <div className='privateKey'>
                   <div className='form-floating mt-4'>
-                    <input type='password' className='form-control' name='privateKey' onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.privateKey} placeholder='privateKey' />
+                    <input type='password' className='form-control border-0' name='privateKey' onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.privateKey} placeholder='privateKey' />
                     <label htmlFor=''>Your privateKey</label>
                   </div>
                   {
@@ -90,7 +90,7 @@ function AdminSignin() {
                   }
                 </div>
                 <div className='col-sm-12 ms-3 mt-3'>
-                  <p className='text-muted'>Login as a staff | <Link to='/staff_login' className='text-decoration-none'>Sign in</Link></p>
+                  <p className='text-muted fs-5 '>Login as a staff | <Link to='/staff_login' className='text-decoration-none'>Sign in</Link></p>
                 </div>
                 <div className='button mt-4'>
                   <button className="btn bgs text-center w-100 text-white fs-5" type='submit'>{isGoing ? <div className="spinner-border text-white opacity-50" role="status">

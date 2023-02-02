@@ -6,11 +6,11 @@ import { FaRegBookmark } from 'react-icons/fa'
 import adeLogo from '../Images/AdeyosolaVar.jpg'
 import style from './style.css'
 import { Tooltip } from 'bootstrap/dist/js/bootstrap.esm.min.js'
-function AdminNav({ firstname, profilePhoto }) {
+function AdminNav({ firstname, profilePhoto, adminDetail }) {
   useEffect(() => {
     Array.from(document.querySelectorAll('button[data-bs-toggle="tooltip"]'))
     .forEach(tooltipNode => new Tooltip(tooltipNode))
-    });
+    }, []);
 
     const navigate = useNavigate()
     const logOut = () => {
@@ -48,7 +48,7 @@ function AdminNav({ firstname, profilePhoto }) {
                                 <img src={ profilePhoto == '' ? user : profilePhoto} className='card-img-top rounded-circle' style={{ width: '7vh', height: '7vh' }} alt='profile Pic'/><span className=''> Hi, {firstname!== ""? firstname : 'user'}</span>
                             </button>
                             <ul className="dropdown-menu text-light" aria-labelledby="navbarDropdown">
-                                <li><NavLink activeClassName="active" to="/admin/profile" className="dropdown-item list"><FaRegUser /> Profile</NavLink></li>
+                                <li><NavLink activeClassName="active" to={`/admin/${adminDetail?._id}`} className="dropdown-item list"><FaRegUser /> Profile</NavLink></li>
                                 <li><NavLink activeClassName="active" to="/admin/signup" className="dropdown-item list"><FaRegBookmark /> Add New Admin</NavLink></li>
                                 <li><NavLink activeClassName="active" to="/admin/create-staff-account" className="dropdown-item list"><FaUserPlus /> Add New Staff</NavLink></li>
                                 <li><hr className="dropdown-divider" /></li>

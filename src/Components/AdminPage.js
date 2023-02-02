@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import AdminHome from './AdminHome'
 import AdminNav from './AdminNav'
 import Adminsignup from './Adminsignup'
@@ -27,7 +27,7 @@ function AdminPage() {
   const [adminDetail, setadminDetail] = useState('')
   useEffect(() => {
     authorizeUser()
-  }, [])
+  })
   const authorizeUser = () => {
     const admintoken = JSON.parse(localStorage.getItem('admintoken'))
     axios.get(getHomeURI, {
@@ -38,7 +38,7 @@ function AdminPage() {
       }
     }).then((res) => {
       const responseFromServer = res.data.thisadmin
-      setadminDetail(()=>{return res.data.thisadmin})
+      setadminDetail(()=>{return res?.data.thisadmin})
       if (res.data.status) {
         const adminInfo = { adminId: responseFromServer._id, email: responseFromServer.email, firstname: responseFromServer.firstname, lastname: responseFromServer.lastname }
         localStorage.setItem('adminInfo', JSON.stringify(adminInfo))
@@ -67,14 +67,15 @@ function AdminPage() {
 
   return (
     <>
-    <AdminNav firstname = {firstname} profilePhoto={profilePhoto}/>
+    <AdminNav firstname = {firstname} adminDetail={adminDetail} profilePhoto={profilePhoto}/>
         <Routes>
+          <Route path='/' element={<Navigate to={'/admin/home'}/>}/>
             <Route path='/home' element={<AdminHome staff={staff} products={products}/>}/>
             <Route path='/customers' element={<CustomerList staff={staff} adminDetail={adminDetail}/>}/>
             <Route path='/addProduct' element={<UploadProducts adminDetail={adminDetail}/>} />
             <Route path='/signup' element={<Adminsignup username={username}/>}/>
             <Route path='/create-staff-account' element={<StaffSignup username={username}/>}/>
-            <Route path='/profile' element={<AdminProfile adminDetail={adminDetail}/>} />
+            <Route path='/:_id' element={<AdminProfile/>} />
             <Route path='/about' element={<About />} />
         </Routes>
         <Footage />

@@ -1,13 +1,24 @@
 import axios, { Axios } from 'axios'
 import React, { useState, useEffect } from 'react'
-import { FaCartArrowDown, FaRegBookmark, FaRegUser, FaUserFriends } from 'react-icons/fa'
+import { FaCartArrowDown, FaCheck, FaPencilAlt, FaRegBookmark, FaRegUser, FaUserFriends } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
 import user from '../Images/user.PNG'
 import style from './style.css'
 import { baseUrl } from './URL'
-function AdminProfile({ adminDetail }) {
+import { useParams } from 'react-router-dom'
+import useSWR from "swr"
+import Loader from 'react-spinners/ClockLoader'
+import {toast, ToastContainer} from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
+function AdminProfile() {
+
+    const paramsRouter = useParams()
+
+    const {data, error} = useSWR(`${baseUrl}/admin?qry=${paramsRouter._id}`, {refreshInterval: 1000})
+
+
     const profileURI = `${baseUrl}/admin/save`
-    const PROFILEPHOTOURI = `${baseUrl}/uploadProfilePhoto`
+    const PROFILEPHOTOURI = `${baseUrl}/admin/uploadProfilePhoto`
     const deleteAccURI = `${baseUrl}/admin/deleteAccount`
     const [firstname, setfirstname] = useState('')
     const [lastname, setlastname] = useState('')
@@ -29,14 +40,14 @@ function AdminProfile({ adminDetail }) {
     const [understand, setunderstand] = useState(false)
     const navigate = useNavigate()
     useEffect(() => {
-        setfirstname(adminDetail.firstname)
-        setlastname(adminDetail.lastname)
-        setemail(adminDetail.email)
-        setcontact(adminDetail.contact)
-        setusername(adminDetail.username)
-        setadminId(adminDetail._id)
-        setgender(adminDetail.gender)
-    }, [])
+        setfirstname(data?.data.result.firstname)
+        setlastname(data?.data.result.lastname)
+        setemail(data?.data.result.email)
+        setcontact(data?.data.result.contact)
+        setusername(data?.data.result.username)
+        setadminId(data?.data.result._id)
+        setgender(data?.data.result.gender)
+    }, [data])
     const options = [gender, 'male', 'female']
     const handleChange = (e) => {
             setgender(e.target.value)
@@ -51,6 +62,7 @@ function AdminProfile({ adminDetail }) {
         reader.onload = () => {
             setdispp(false)
             setconvertedFile(reader.result)
+            console.log(convertedFile)
         }
     }
     const savePhoto = () => {
@@ -80,6 +92,8 @@ function AdminProfile({ adminDetail }) {
                 setmessage(() => { return res.data.message })
                 setstatus(() => { return res.data.status })
             }
+        }).catch((err)=>{
+            toast.error(err.message, {position: "top-center", theme: "colored"})
         })
     }
     const closeModal = () => {
@@ -94,7 +108,8 @@ function AdminProfile({ adminDetail }) {
                 navigate('/admin_login')
             }
             else {
-                alert(res.send.message)
+                toast.error(res.data.message, {position: "top-center", theme: "colored"})
+                
             }
         })
     }
@@ -108,6 +123,95 @@ function AdminProfile({ adminDetail }) {
             <div className='container-fluid cont_fluid bg-light pt-2'>
                 <div className='container'>
                     <div className='row mt-4'>
+                        <div className='col-lg-9 shadow-sm'>
+                            <label htmlFor='avatarFile' className=''>
+                        <img src={ data?.data.result.profilePhoto == '' ? user : data?.data.result.profilePhoto} className='card-img-top rounded-circle' style={{ width: '12vh', height: '12vh' }} alt="profilepics"/>
+                        {
+                            isSavingPicture? <Loader loading={isSavingPicture} size={15} color={"navy"}/>:
+                            !!convertedFile? 
+                            <FaCheck cursor={'pointer'} color={'navy'}/> : <FaPencilAlt cursor={'pointer'} color={'navy'}/> 
+                        }
+                                    <input type='file' className='form-control border-0 border-bottom border-dark d-none' id='avatarFile' placeholder='Upload' onChange={(e) => selectPhoto(e)} />
+                            </label>
+                            <div >
+                            {
+                                        !!convertedFile? 
+                                        <button className='btn btn-danger btn-sm' onClick={savePhoto}>Upload</button>:
+                                        ""
+                            }
+
+                            </div>
+                            {/* <div className='row col-sm-12'>
+                                <div className='col-sm-8'>
+                                    <label htmlFor='' >profile photo</label>
+                                    {isLoading ? '' :
+                                        status ? '' : <p className={!disable ? 'alert alert-danger p-0 text-center d-none' : 'alert alert-danger p-0 text-center'}>{message}</p>
+                                    }
+                                    <input type='file' className='form-control border-0 border-bottom border-dark' id='avatarFile' placeholder='Upload' onChange={(e) => selectPhoto(e)} />
+                                </div>
+                                <div className='col-sm-4'>
+                                    <button className='btn btnbg w-100 text-light py-3' onClick={savePhoto} disabled={dispp}>{isSavingPicture ? <div className="spinner-border text-light opacity-50" role="status">
+                                                    <span className="visually-hidden">Loading...</span>
+                                                </div> : 'Save Profile Picture'}</button>
+                                </div>
+                            </div> */}
+                            <div className='card border-0 p-2'>
+                                <h4 className='card-header'>Details</h4>
+                                {isLoading ? '' :
+                                    !status ? <p className={disable ? 'alert alert-danger d-none' : 'alert alert-danger'}>{message}</p> : ''
+                                }
+                                <div className='row mt-3'>
+                                    <div className='col-sm-6 form-floating'>
+                                        <input type='text' className='form-control border-0' disabled={disable} placeholder='Firstname' value={firstname} onChange={(e) => setfirstname(e.target.value)} />
+                                        <label htmlFor='' >Firstname</label>
+                                    </div>
+                                    <div className='col-sm-6 form-floating'>
+                                        <input type='text' className='form-control border-0' disabled={disable} placeholder='Lastname' value={lastname} onChange={(e) => setlastname(e.target.value)} />
+                                        <label htmlFor='' >Lastname</label>
+                                    </div>
+                                </div>
+                                <div className='row mt-3'>
+                                    <div className='col-sm-6 form-floating'>
+                                        <input type='email' className='form-control border-0' disabled={true} placeholder='email' value={email} onChange={(e) => setemail(e.target.value)} />
+                                        <label htmlFor='' >Email Address : <span className='text-muted'>This field can not be edited for now</span></label>
+                                    </div>
+                                    <div className='col-sm-6 form-floating'>
+                                        <input type='text' className='form-control border-0' disabled={disable} placeholder='phone' value={contact} onChange={(e) => setcontact(e.target.value)} />
+                                        <label htmlFor='' >Phone Number(optional)</label>
+                                    </div>
+                                </div>
+                                <div className='row mt-3'>
+                                    <div className='col-sm-6 form-floating'>
+                                    <select className='form-control border-0' defaultValue={gender} disabled={disable} onChange={handleChange}>
+                                            {
+                                                options.map((option) => (
+                                                    <option value={option}>{option}</option>
+                                                ))
+                                            }
+                                        </select>
+                                        <label htmlFor='' >Gender(optional)</label>
+                                    </div>
+                                    <div className='col-sm-6 form-floating'>
+                                        <input type='text' className='form-control border-0' disabled={disable} value={username} placeholder='username' onChange={(e) => setusername(e.target.value)} />
+                                        <label htmlFor='' >Username(optional)</label>
+                                    </div>
+                                </div>
+                                <div className='row mt-3'>
+
+                                </div>
+                                <div className='row shadow mt-4 btn-group pb-3'>
+                                    <div className='col-6'>
+                                        <button className='btn btn-primary w-100' onClick={editProfile}>EDIT</button>
+                                    </div>
+                                    <div className='col-6 bgs rounded'>
+                                        <button className='border-0 pt-2 w-100 bgs text-light' disabled={disable} onClick={saveProfile}>{isSaving ? <div className="spinner-border text-light opacity-50" role="status">
+                                                    <span className="visually-hidden">Loading...</span>
+                                                </div> : 'SAVE'}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div className='col-lg-3 shadow-sm'>
                             <div className='card h-100 p-2'>
                                 <Link to='' className='text-decoration-none text-dark list'><FaRegUser size='3vh' className='textColor'/> My account</Link>
@@ -126,7 +230,7 @@ function AdminProfile({ adminDetail }) {
                                             <div className="modal-body">
                                                 <p className='text-danger'><b >Notice : </b>If you <b>proceed</b> this aspect, this account will be permanently deleted from JFIX e-commerce site. And all your data will be also be discarded here!</p>
                                             </div>
-                                            <div className='col-4 ms-3'>
+                                            <div className='col-sm-4 ms-3'>
                                                 <button className='btn btn-warning' onClick={tama} disabled={understand}>I understand you</button>
                                             </div>
                                             <div className="modal-footer">
@@ -140,81 +244,10 @@ function AdminProfile({ adminDetail }) {
                                 </div>
                             </div>
                         </div>
-                        <div className='col-lg-9 shadow-sm py-3'>
-                        <img src={ adminDetail.profilePhoto == '' ? user : adminDetail.profilePhoto} className='card-img-top rounded-circle' style={{ width: '12vh', height: '12vh' }} alt="profilepics"/><span className='text-light'>Hi, {firstname}</span>
-                            <div className='row col-sm-12'>
-                                <div className='col-sm-8'>
-                                    <label htmlFor='' >profile photo</label>
-                                    {isLoading ? '' :
-                                        status ? '' : <p className={!disable ? 'alert alert-danger p-0 text-center d-none' : 'alert alert-danger p-0 text-center'}>{message}</p>
-                                    }
-                                    <input type='file' className='form-control border-0 border-bottom border-dark' placeholder='Upload' onChange={(e) => selectPhoto(e)} />
-                                </div>
-                                <div className='col-sm-4'>
-                                    <button className='btn btnbg w-100 text-light py-3' onClick={savePhoto} disabled={dispp}>{isSavingPicture ? <div className="spinner-border text-light opacity-50" role="status">
-                                                    <span className="visually-hidden">Loading...</span>
-                                                </div> : 'Save Profile Picture'}</button>
-                                </div>
-                            </div>
-                            <div className='card border-0 p-2'>
-                                <h4 className='card-header'>Details</h4>
-                                {isLoading ? '' :
-                                    !status ? <p className={disable ? 'alert alert-danger d-none' : 'alert alert-danger'}>{message}</p> : ''
-                                }
-                                <div className='row mt-3'>
-                                    <div className='col-6 form-floating'>
-                                        <input type='text' className='form-control border-0 border-bottom border-dark' disabled={disable} placeholder='Firstname' value={firstname} onChange={(e) => setfirstname(e.target.value)} />
-                                        <label htmlFor='' >Firstname</label>
-                                    </div>
-                                    <div className='col-6 form-floating'>
-                                        <input type='text' className='form-control border-0 border-bottom border-dark' disabled={disable} placeholder='Lastname' value={lastname} onChange={(e) => setlastname(e.target.value)} />
-                                        <label htmlFor='' >Lastname</label>
-                                    </div>
-                                </div>
-                                <div className='row mt-3'>
-                                    <div className='col-6 form-floating'>
-                                        <input type='email' className='form-control border-0 border-bottom border-dark' disabled={true} placeholder='email' value={email} onChange={(e) => setemail(e.target.value)} />
-                                        <label htmlFor='' >Email Address : <span className='text-muted'>This field can not be edited for now</span></label>
-                                    </div>
-                                    <div className='col-6 form-floating'>
-                                        <input type='text' className='form-control border-0 border-bottom border-dark' disabled={disable} placeholder='phone' value={contact} onChange={(e) => setcontact(e.target.value)} />
-                                        <label htmlFor='' >Phone Number(optional)</label>
-                                    </div>
-                                </div>
-                                <div className='row mt-3'>
-                                    <div className='col-6 form-floating'>
-                                    <select className='form-control border-0 border-bottom border-dark' defaultValue={gender} disabled={disable} onChange={handleChange}>
-                                            {
-                                                options.map((option) => (
-                                                    <option value={option}>{option}</option>
-                                                ))
-                                            }
-                                        </select>
-                                        <label htmlFor='' >Gender(optional)</label>
-                                    </div>
-                                    <div className='col-6 form-floating'>
-                                        <input type='text' className='form-control border-0 border-bottom border-dark' disabled={disable} value={username} placeholder='username' onChange={(e) => setusername(e.target.value)} />
-                                        <label htmlFor='' >Username(optional)</label>
-                                    </div>
-                                </div>
-                                <div className='row mt-3'>
-
-                                </div>
-                                <div className='row shadow mt-4 btn-group pb-3'>
-                                    <div className='col-6'>
-                                        <button className='btn btn-success w-100' onClick={editProfile}>EDIT</button>
-                                    </div>
-                                    <div className='col-6 bgs rounded'>
-                                        <button className='border-0 pt-2 w-100 bgs text-light' disabled={disable} onClick={saveProfile}>{isSaving ? <div className="spinner-border text-light opacity-50" role="status">
-                                                    <span className="visually-hidden">Loading...</span>
-                                                </div> : 'SAVE'}</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </>
     )
 }
