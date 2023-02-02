@@ -90,6 +90,7 @@ function AdminSignin() {
                   }
                 </div>
                 <div className='col-sm-12 ms-3 mt-3'>
+                  <Link to={'/recov_email'} className='textColor forgotPsw' style={{cursor: "pointer"}}><i>Forgotten Password?</i></Link>
                   <p className='text-muted fs-5 '>Login as a staff | <Link to='/staff_login' className='text-decoration-none'>Sign in</Link></p>
                 </div>
                 <div className='button mt-4'>
