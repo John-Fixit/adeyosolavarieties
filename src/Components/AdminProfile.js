@@ -129,7 +129,7 @@ function AdminProfile() {
                         {
                             isSavingPicture? <Loader loading={isSavingPicture} size={15} color={"navy"}/>:
                             !!convertedFile? 
-                            <FaCheck cursor={'pointer'} color={'navy'}/> : <FaPencilAlt cursor={'pointer'} color={'navy'}/> 
+                            <FaCheck cursor={'pointer'} color={'navy'} data-bs-target="tooltip" title="File selected or choose new file"/> : <FaPencilAlt cursor={'pointer'} color={'navy'} data-bs-target="tooltip" title="Choose a file to upload"/> 
                         }
                                     <input type='file' className='form-control border-0 border-bottom border-dark d-none' id='avatarFile' placeholder='Upload' onChange={(e) => selectPhoto(e)} />
                             </label>
@@ -141,20 +141,7 @@ function AdminProfile() {
                             }
 
                             </div>
-                            {/* <div className='row col-sm-12'>
-                                <div className='col-sm-8'>
-                                    <label htmlFor='' >profile photo</label>
-                                    {isLoading ? '' :
-                                        status ? '' : <p className={!disable ? 'alert alert-danger p-0 text-center d-none' : 'alert alert-danger p-0 text-center'}>{message}</p>
-                                    }
-                                    <input type='file' className='form-control border-0 border-bottom border-dark' id='avatarFile' placeholder='Upload' onChange={(e) => selectPhoto(e)} />
-                                </div>
-                                <div className='col-sm-4'>
-                                    <button className='btn btnbg w-100 text-light py-3' onClick={savePhoto} disabled={dispp}>{isSavingPicture ? <div className="spinner-border text-light opacity-50" role="status">
-                                                    <span className="visually-hidden">Loading...</span>
-                                                </div> : 'Save Profile Picture'}</button>
-                                </div>
-                            </div> */}
+                           
                             <div className='card border-0 p-2'>
                                 <h4 className='card-header'>Details</h4>
                                 {isLoading ? '' :
@@ -201,7 +188,7 @@ function AdminProfile() {
                                 </div>
                                 <div className='row shadow mt-4 btn-group pb-3'>
                                     <div className='col-6'>
-                                        <button className='btn btn-primary w-100' onClick={editProfile}>EDIT</button>
+                                        <button className='btn btn-primary w-100' data-bs-toggle="modal" data-bs-target="#editModal" onClick={editProfile}>EDIT</button>
                                     </div>
                                     <div className='col-6 bgs rounded'>
                                         <button className='border-0 pt-2 w-100 bgs text-light' disabled={disable} onClick={saveProfile}>{isSaving ? <div className="spinner-border text-light opacity-50" role="status">
@@ -244,6 +231,26 @@ function AdminProfile() {
                                 </div>
                             </div>
                         </div>
+                      
+                    
+                        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
+                            
+                              </div>
+                              <div class="modal-body">
+                                ...
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                       
                     </div>
                 </div>
             </div>
