@@ -9,6 +9,7 @@ import StaffLogin from './Components/StaffLogin'
 import { SWRConfig } from 'swr'
 import axios from 'axios'
 import ForgotPsw from './Components/ForgotPsw'
+import ResetPsw from './Components/ResetPsw'
 function App() {
 
   const fetcher = (...args)=> axios.get(...args) 
@@ -25,6 +26,7 @@ function App() {
         <Route path='/admin/*' element={<AdminPage />} />
         <Route path='/staff/*' element={<Staff />} />
         <Route path='/recov_email' element={<ForgotPsw />} />
+        <Route path='/reset_password/:resetToken' element={<ResetPsw />} />
         <Route path='*' element={<AppLandingRoute />} />
         
       </Routes>

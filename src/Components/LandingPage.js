@@ -191,7 +191,7 @@ function LandingPage() {
                     <div className="card shadow-lg p-2 h-100">
                       <Skeleton
                         type="thumbnail"
-                        height={150}
+                        height={200}
                         className="card-img-top"
                       />
 

@@ -115,7 +115,7 @@
 
 .btnbg {
     background-color: orangered !important;
-    color: white;
+    color: white !important;
 }
 .btnHover:hover{
     background-color: whitesmoke !important;
@@ -127,6 +127,14 @@
 .forgotPsw{
     cursor: pointer;
     text-decoration: none;
+}
+
+.forgotPswContainer
+{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .forgotPsw:hover{
     text-decoration: underline;
