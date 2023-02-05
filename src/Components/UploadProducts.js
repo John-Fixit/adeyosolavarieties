@@ -77,9 +77,6 @@ function UploadProducts({ adminDetail }) {
     <>
       <div className="products_row cont_fluid">
         <h2 className="card-header text-center pt-2">Add New Product</h2>
-        <div className="alert alert-warning text-center">
-        NOTE: The maximum rate available is 5
-        </div>
         <div className="row mt-2 ">
           <div className="col-lg-6">
             {isLoading ? (
@@ -138,6 +135,9 @@ function UploadProducts({ adminDetail }) {
                     />
                     <label htmlFor="">Rate the product</label>
                   </div>
+                  <div className="alert alert-warning text-center">
+        NOTE: The maximum rate available is 5
+        </div>
                 </div>
               </div>
               <div className="col-sm-12">

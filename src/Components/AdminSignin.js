@@ -11,6 +11,7 @@ function AdminSignin() {
   const [status, setstatus] = useState(false)
   const [isLoading, setisLoading] = useState(true)
   const [isGoing, setisGoing] = useState(false)
+  const [fEmail, setfEmail] = useState("")
   const navigate = useNavigate()
   const formik = useFormik({
     initialValues: {
@@ -41,6 +42,15 @@ function AdminSignin() {
       privateKey: yup.string().required('You must provide your digit private key')
     })
   })
+
+  const sendEmail=()=>{
+    axios.get(`${baseUrl}/admin/forgotPryKey?email=${fEmail}`).then((res)=>{
+      console.log(res.data)
+    }).catch((err)=>{
+        console.log(err)
+    })
+
+}
   return (
     <>
       <div className='container p-sm'>
@@ -90,6 +100,9 @@ function AdminSignin() {
                   }
                 </div>
                 <div className='col-sm-12 ms-3 mt-3'>
+                <p className='textColor forgotPsw' style={{cursor: "pointer"}} data-bs-toggle="modal" data-bs-target="#exampleModal"><i>Forgotten Private Key?</i></p>
+                </div>
+                <div className='col-sm-12 ms-3 mt-3'>
                   <Link to={'/recov_email'} className='textColor forgotPsw' style={{cursor: "pointer"}}><i>Forgotten Password?</i></Link>
                   <p className='text-muted fs-5 '>Login as a staff | <Link to='/staff_login' className='text-decoration-none'>Sign in</Link></p>
                 </div>
@@ -100,6 +113,29 @@ function AdminSignin() {
                 </div>
               </form>
             </div>
+
+            <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h5 className="modal-title" id="exampleModalLabel">Recover Private Key</h5>
+                   </div>
+                  <div className="modal-body">
+                    <div className=''>
+                    <i>
+                    Enter the email address of your
+                    account. we'll send you email with your private Key.
+                  </i>
+                      <input type="email" required className='form-control' onChange={(e)=>setfEmail(e.target.value)}/>
+                    </div>
+                  </div>
+                  <div className="modal-footer">
+                    <button type="button" className={`btn btn-primary ${!!(fEmail)?"": 'disabled'}`} onClick={sendEmail}>Send</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
 
           </div>
         </div>

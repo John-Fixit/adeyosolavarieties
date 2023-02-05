@@ -5,7 +5,7 @@ import { FaRegUser, FaStrikethrough } from 'react-icons/fa'
 import adeLogo from '../Images/AdeyosolaVar.jpg'
 import style from './style.css'
 import { Tooltip } from 'bootstrap/dist/js/bootstrap.esm.min.js'
-function StaffNav({ firstname, profilePhoto }) {
+function StaffNav({ firstname, profilePhoto, adminDetail }) {
     useEffect(() => {
         Array.from(document.querySelectorAll('button[data-bs-toggle="tooltip"]'))
         .forEach(tooltipNode => new Tooltip(tooltipNode))
@@ -34,7 +34,7 @@ function StaffNav({ firstname, profilePhoto }) {
                         <NavLink activeClassName="active" to='/staff/' className="nav-link fw-bold  " data-bs-toggle="tooltip" data-bs-placement="top" title="Admin Home">Home</NavLink>
                     </li>
                     <li className="nav-item ms-3">
-                        <NavLink activeClassName="active" to='/staff/customers' className="nav-link fw-bold " data-bs-toggle="tooltip" data-bs-placement="top" title="Staff list">Staff List</NavLink>
+                        <NavLink activeClassName="active" to='/staff/about' className="nav-link fw-bold " data-bs-toggle="tooltip" data-bs-placement="top" title="Staff list">About</NavLink>
                     </li>
                     <li className="nav-item ms-3">
                         <NavLink activeClassName="active" to='/staff/addProduct' className="nav-link fw-bold  position-relative" data-bs-toggle="tooltip" data-bs-placement="top" title="Upload Product"> Add New product </NavLink>
@@ -45,7 +45,7 @@ function StaffNav({ firstname, profilePhoto }) {
                     <img src={ profilePhoto == '' ? user : profilePhoto} className='card-img-top rounded-circle' style={{ width: '7vh', height: '7vh' }} alt='profile Pic'/><span className='text-light'> Hi, {firstname!== ""? firstname : 'user'}</span>
                     </button>
                     <ul className="dropdown-menu text-light" aria-labelledby="navbarDropdown">
-                        <li><NavLink activeClassName="active" to="/staff/profile" className="dropdown-item list"><FaRegUser /> Profile</NavLink></li>
+                        <li><NavLink activeClassName="active" to={`/staff/${adminDetail?._id}`} className="dropdown-item list"><FaRegUser /> Profile</NavLink></li>
                         <li><hr className="dropdown-divider" /></li>
                         <li><button className="btn dropdown-item list" onClick={logOut}>Log out</button></li>
                     </ul>

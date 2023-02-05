@@ -170,7 +170,7 @@ function LandingPage() {
           </button>
         </div>
         <div className="col-sm-12 products_row">
-          <p className="bgs px-2 fs-5 text-light text-center">
+          <p className="bgs rounded-pill px-2 fs-5 text-light text-center">
             <Typewriter
               options={{
                 strings: `Get in touch with adeyosola varieties on whatsapp for your

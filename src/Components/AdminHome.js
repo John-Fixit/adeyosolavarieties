@@ -151,8 +151,8 @@ function AdminHome({ staff }) {
   }
   return (
     <>
-      <div className="container-fluid cont_fluid ">
-        <div
+      <div className="container-fluid cont_fluid">
+        {/* <div
           id="carouselExampleCaptions"
           className="carousel slide carousel-fade"
           data-bs-ride="carousel"
@@ -233,7 +233,11 @@ function AdminHome({ staff }) {
             ></span>
             <span className="visually-hidden">Next</span>
           </button>
-        </div>
+        </div> */}
+
+
+
+
         <div className="col-sm-12 products_row">
           <div className="row">
             <div className="col-md-6 col-sm-12 mt-3">

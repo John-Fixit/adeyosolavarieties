@@ -25,7 +25,7 @@ function Footage() {
                     </div>
                 </div>
             </div>
-            <div className="footer-copyright text-center py-3">© 2022 Adeyosola varieties 
+            <div className="footer-copyright text-center py-3">© 2023 Adeyosola varieties 
             </div>
         </footer>
     )

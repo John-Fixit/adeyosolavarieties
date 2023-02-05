@@ -1,8 +1,9 @@
 import React from "react";
 import { FaArrowRight, FaPen } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./getInTouchBtn.css"
 function About() {
+  const location = useLocation().pathname.split('/')
   return (
     <>
       <div className="col-12 cont_fluid">
@@ -35,13 +36,16 @@ function About() {
             </li>
           </ul>
         </div>
+        {
+         location[1]== "staff"?"": (location[1] == 'admin'? "":
         <Link
           to="/contact"
           className="button text-decoration-none btn btnbg text-light mx-3 fw-bold arr_left"
         >
           Get in Touch <span className="arr_left"><FaArrowRight /></span>
 
-        </Link>
+        </Link>)
+        }
       </div>
     </>
   );

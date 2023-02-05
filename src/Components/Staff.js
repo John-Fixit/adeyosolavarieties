@@ -77,15 +77,11 @@ function Staff() {
 
   return (
     <>
-      <StaffNav firstname = {firstname} profilePhoto={profilePhoto}/>
+      <StaffNav firstname = {firstname} profilePhoto={profilePhoto} adminDetail={adminDetail}/>
       <Routes>
         <Route
           path="/"
           element={<AdminHome staff={staff} products={products} />}
-        />
-        <Route
-          path="/customers"
-          element={<CustomerList staff={staff} adminDetail={adminDetail} />}
         />
         <Route
           path="/addProduct"
@@ -93,9 +89,10 @@ function Staff() {
         />
         <Route path="/about" element={<About />} />
         <Route
-          path="/profile"
+          path="/:_id"
           element={<AdminProfile adminDetail={adminDetail} />}
         />
+        <Route path='/about' element={<About />} />
       </Routes>
       <Footage />
     </>

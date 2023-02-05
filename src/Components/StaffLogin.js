@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import style from './style.css'
 import { useFormik } from 'formik'
+import useSWR from "swr"
 import * as yup from 'yup'
 import axios from 'axios'
 import { useNavigate, Link } from 'react-router-dom'
@@ -11,7 +12,10 @@ function StaffLogin() {
     const [status, setstatus] = useState(false)
     const [isLoading, setisLoading] = useState(true)
     const [isGoing, setisGoing] = useState(false)
+    const [fEmail, setfEmail] = useState("")
     const navigate = useNavigate()
+
+    const e_ref = useRef()
     const formik = useFormik({
       initialValues: {
         email: '',
@@ -39,6 +43,15 @@ function StaffLogin() {
         password: yup.string().required('This field is required'),
       })
     })
+
+    const sendEmail=()=>{
+        axios.get(`${baseUrl}/admin/forgotPryKey?email=${fEmail}`).then((res)=>{
+          
+        }).catch((err)=>{
+            console.log(err)
+        })
+
+    }
   return (
     <>
     <div className='container p-sm'>
@@ -79,6 +92,9 @@ function StaffLogin() {
                   }
                 </div>
                 <div className='col-sm-12 ms-3 mt-3'>
+                <p className='textColor forgotPsw' style={{cursor: "pointer"}} data-bs-toggle="modal" data-bs-target="#exampleModal"><i>Forgotten Private Key?</i></p>
+                </div>
+                <div className='col-sm-12 ms-3 mt-3'>
                   <p className='text-muted'>Login as a admin | <Link to='/admin_login' className='text-decoration-none'>Sign in</Link></p>
                 </div>
                 <div className='button mt-4'>
@@ -89,6 +105,27 @@ function StaffLogin() {
               </form>
             </div>
 
+            <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h5 className="modal-title" id="exampleModalLabel">Recover Private Key</h5>
+                   </div>
+                  <div className="modal-body">
+                    <div className=''>
+                    <i>
+                    Enter the email address of your
+                    account. we'll send you email with your private Key.
+                  </i>
+                      <input type="email" required className='form-control' onChange={(e)=>setfEmail(e.target.value)}/>
+                    </div>
+                  </div>
+                  <div className="modal-footer">
+                    <button type="button" className={`btn btn-primary ${!!(fEmail)?"": 'disabled'}`} onClick={sendEmail}>Send</button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

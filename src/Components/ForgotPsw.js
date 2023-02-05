@@ -1,20 +1,32 @@
 
-import React from "react";
+import React, { useState } from "react";
 import style from "./style.css";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { baseUrl } from "./URL";
+import Loader from "react-spinners/ClockLoader"
 function ForgotPsw() {
+  const [resMessage, setresMessage] = useState("")
+  const [resStatus, setresStatus] = useState(undefined)
+  const [isLoading, setisLoading] = useState(false)
   const formik = useFormik({
     initialValues: {
       email: "",
     },
-    onSubmit: async(values) => {
-        let res = await axios.post(`${baseUrl}/admin/forgotPsw`, values)
-        let data = await res.data
-        console.log(data)
+    onSubmit: (values) => {
+      setisLoading(true)
+       axios.post(`${baseUrl}/admin/forgotPsw`, values).then((res)=>{
+          let {message, status} = res.data
+          setresStatus(status)
+          setresMessage(message)
+       }).catch((err)=>{
+          setresStatus(false)
+          setresMessage(err.message)
+       }).finally(()=>{
+            setisLoading(false)
+       })
     },
     validationSchema: yup.object({
       email: yup
@@ -25,30 +37,26 @@ function ForgotPsw() {
   });
   return (
     <>
-      <div className="forgotPswContainer p-sm">
-        <div className="row shadow p-3 rounded">
-          <div className="col-sm-6 card h-100 bgs text-center p-sm-5 rounded-3">
-            <div className="adminLog">
-              <div className="py-4">
-                <h1 className="fw-bold">FORGOTTEN PASSWORD</h1>
-                <p className="fw-bold">
-                  Recover your password and login with ease
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="col-sm-6">
+      <div className="forgotPswContainer">
+        <div className="row shadow rounded">
+          <div className="">
             <div className="card h-100 border-0 form" style={{display: "flex", justifyContent: "center"}}>
               <form action="" onSubmit={formik.handleSubmit}>
                 <h2 className="card-header text-center text-muted py-3">
                   Recover Password{" "}
                 </h2>
-                <div className="tex p-2">
+                <div className="p-2">
                   <i>
                     Enter the email address of your
                     account. we'll send you a password reset email.
                   </i>
                 </div>
+                {
+                  resStatus!=undefined &&
+                <div className={`alert ${resStatus==false&&"alert-danger"} ${resStatus==true&&"alert-success"}`}>
+                  <span >{resMessage}</span>
+                </div>
+                }
                 <div className="email">
                   <div className="form-floating mt-4">
                     <input
@@ -74,7 +82,11 @@ function ForgotPsw() {
                     <i>Remebered your password? <Link to={'/admin_login'} >Login</Link></i>
                 </div>
                 <div className="m-4">
-                <button type="submit" className="btn btnbg rounded-pill w-100">NEXT</button>
+                  {
+                      isLoading?
+                      <Loader loading={isLoading} color={"orangered"} size={25} cssOverride={{margin: "0 auto"}}/>:
+                      <button type="submit" className="btn btnbg rounded-pill w-100">NEXT</button>
+                  }
                 </div>
 
               </form>

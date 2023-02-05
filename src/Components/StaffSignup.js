@@ -22,14 +22,12 @@ function StaffSignup() {
         gender: '',
         profilePhoto: '',
         username: '',
-        password: '',
         addedBy: 'Admin',
         role: 'Staff'
-        // privateKey: ''
       },
       onSubmit: (values) => {
         setisGoing(true)
-        console.log(values);
+        console.log(values)
         axios.post(signupURI, values).then((res)=>{
           setisGoing(false)
           setisLoading(false)
@@ -41,7 +39,6 @@ function StaffSignup() {
             formik.values.contact = ''
             formik.values.email = ''
             formik.values.username = ''
-            formik.values.password = ''
           }
         })
       },
@@ -50,7 +47,6 @@ function StaffSignup() {
         lastname: yup.string().required('This field is required'),
         contact: yup.string().required('This field is required').matches(contactRegex, 'contact must start from zero and be valid 11 digit'),
         email: yup.string().required('This field is required').email('Please input a valid email'),
-        password: yup.string().required('This field is required').matches(passRegex, 'Password must not less than six character'),
       })
     })
   return (
@@ -109,14 +105,6 @@ function StaffSignup() {
                     formik.touched.email ? <small className='text-danger'>{formik.errors.email}</small> : ''
                   }
                 </div>
-                {/* <div className=' form-floating mt-2'>
-                  <select className='form-control' onChange={formik.handleChange}>
-                    <option value='1'>Please select</option>
-                    <option value='2'>Male</option>
-                    <option value='3'>Female</option>
-                  </select>
-                  <label htmlFor='' >Gender(optional)</label>
-                </div> */}
                 <div className='username'>
                   <div className='form-floating mt-2'>
                     <input type='text' className='form-control' name='username' onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.username} placeholder='username' />
@@ -126,15 +114,7 @@ function StaffSignup() {
                     formik.touched.email ? <small className='text-danger'>{formik.errors.email}</small> : ''
                   }
                 </div>
-                <div className='password'>
-                  <div className='form-floating mt-2'>
-                    <input type='password' className='form-control' name='password' onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder='password' value={formik.values.password}/>
-                    <label htmlFor=''>Password</label>
-                  </div>
-                  {
-                    formik.touched.password ? <small className='text-danger'>{formik.errors.password}</small> : ''
-                  }
-                </div>
+               
                 <div className='button mt-2'>
                   <button className="btn bgs text-center w-100 text-white fs-5" type='submit'>{isGoing ? <div className="spinner-border text-light opacity-50" role="status">
                     <span className="visually-hidden">Loading...</span>
