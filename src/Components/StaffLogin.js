@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react'
 import style from './style.css'
 import { useFormik } from 'formik'
-import useSWR from "swr"
 import * as yup from 'yup'
 import axios from 'axios'
 import { useNavigate, Link } from 'react-router-dom'
+import {ToastContainer, toast} from "react-toastify"
 import { baseUrl } from './URL'
 function StaffLogin() {
     const signinURI = `${baseUrl}/admin/staffSignin`
@@ -15,7 +15,8 @@ function StaffLogin() {
     const [fEmail, setfEmail] = useState("")
     const navigate = useNavigate()
 
-    const e_ref = useRef()
+    const toastOption = {position: "top-center", pauseOnHover: true, theme: "colored", autoClose: 8000, closeButton: true}
+
     const formik = useFormik({
       initialValues: {
         email: '',
@@ -46,9 +47,13 @@ function StaffLogin() {
 
     const sendEmail=()=>{
         axios.get(`${baseUrl}/admin/forgotPryKey?email=${fEmail}`).then((res)=>{
-          
+            const {message, status} = res.data
+            status?
+              toast.success(message, toastOption):
+              toast.success(message, toastOption)
+            
         }).catch((err)=>{
-            console.log(err)
+            toast.error(err.message, toastOption)
         })
 
     }
@@ -128,6 +133,7 @@ function StaffLogin() {
             </div>
           </div>
         </div>
+        <ToastContainer />
       </div>
     </>
   )

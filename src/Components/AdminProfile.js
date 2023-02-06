@@ -50,7 +50,6 @@ function AdminProfile() {
     const options = [gender, 'male', 'female']
     const handleChange = (e) => {
             setgender(e.target.value)
-            console.log(e.target.value)
     }
     const selectPhoto = (e) => {
         const selectedPhoto = e.target.files[0]

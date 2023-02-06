@@ -13,6 +13,7 @@ import Typewriter from "typewriter-effect";
 import AdSense from "react-adsense";
 import { baseUrl } from "./URL";
 import Skeleton from "react-skeleton";
+import CurrencyFormat from "react-currency-format"
 import useSWR from "swr";
 function LandingPage() {
   const { data, error } = useSWR(`${baseUrl}/user/products`);
@@ -45,8 +46,9 @@ function LandingPage() {
             <h6 className="card-title text-start">{eachProduct.title}</h6>
             <p className="rate">RATE: {eachProduct.rating}</p>
             <p className="card-text text-start">
-              Price : ₦{eachProduct.price} <span>per product</span>
+              Price : <CurrencyFormat value={eachProduct.price} thousandSeparator={true} displayType={"text"} prefix={"NGN "}/> <span>per product</span>
             </p>
+          
           </div>
           <div className="card-footer" data-aos="fade-out-top">
             <button

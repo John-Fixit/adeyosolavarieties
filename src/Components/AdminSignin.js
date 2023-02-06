@@ -5,6 +5,7 @@ import * as yup from 'yup'
 import axios from 'axios'
 import { useNavigate, Link } from 'react-router-dom'
 import { baseUrl } from './URL'
+import {ToastContainer, toast} from "react-toastify"
 function AdminSignin() {
   const signinURI = `${baseUrl}/admin/signin`
   const [message, setmessage] = useState('')
@@ -13,6 +14,9 @@ function AdminSignin() {
   const [isGoing, setisGoing] = useState(false)
   const [fEmail, setfEmail] = useState("")
   const navigate = useNavigate()
+
+  const toastOption = {position: "top-center", pauseOnHover: true, theme: "colored", autoClose: 8000, closeButton: true}
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -45,9 +49,12 @@ function AdminSignin() {
 
   const sendEmail=()=>{
     axios.get(`${baseUrl}/admin/forgotPryKey?email=${fEmail}`).then((res)=>{
-      console.log(res.data)
+      const {message, status} = res.data
+            status?
+              toast.success(message, toastOption):
+              toast.success(message, toastOption)
     }).catch((err)=>{
-        console.log(err)
+      toast.error(err.message, toastOption)
     })
 
 }
@@ -135,7 +142,7 @@ function AdminSignin() {
                 </div>
               </div>
             </div>
-
+<ToastContainer />
 
           </div>
         </div>

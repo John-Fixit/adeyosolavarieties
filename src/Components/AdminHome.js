@@ -9,6 +9,7 @@ import img7 from "../Images/1473159158_Christmas-card-for-this-wonderful-season.
 import ReactPaginate from "react-paginate";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import CurrencyFormat from "react-currency-format"
 import {
   FaCartPlus,
   FaEdit,
@@ -75,7 +76,7 @@ function AdminHome({ staff }) {
     seteditPrice(thisProduct.Price);
     seteditRate(thisProduct.Rate);
     seteditId(thisProduct.Id);
-  };
+  };  
 
   const displayProducts = data?.data.result
     .slice(productDisplayed, productDisplayed + productPerPage)
@@ -90,7 +91,7 @@ function AdminHome({ staff }) {
           <div className="card-body">
             <h6 className="card-title text-start">{eachProduct.title}</h6>
             <p className="card-text text-start">
-              Price : ₦{eachProduct.price}
+              Price : <CurrencyFormat value={eachProduct.price} thousandSeparator={true} displayType={"text"} prefix={"NGN "}/>
             </p>
             <p className="rate">RATE: {eachProduct.rating}</p>
           </div>

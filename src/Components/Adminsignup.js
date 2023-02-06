@@ -23,12 +23,11 @@ function Adminsignup({username}) {
       profilePhoto: '',
       username: '',
       password: '',
-      addedBy: 'Admin',
+      addedBy: username? username: "username",
       privateKey: '',
       role: 'Admin'
     },
     onSubmit: (values) => {
-      console.log(values);
       setisGoing(true)
       axios.post(signupURI, values).then((res)=>{
         setisGoing(false)
@@ -112,7 +111,7 @@ function Adminsignup({username}) {
                   }
                 </div>
                 <div className=' form-floating mt-2'>
-                  <select className='form-control border-0' name='gender' onChange={formik.handleChange}>
+                  <select className='form-control border-0' name='gender' value={formik.values.gender} onChange={formik.handleChange}>
                     <option value='Please select'>Please select</option>
                     <option value='Male'>Male</option>
                     <option value='Female'>Female</option>

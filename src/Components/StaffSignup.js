@@ -27,7 +27,6 @@ function StaffSignup() {
       },
       onSubmit: (values) => {
         setisGoing(true)
-        console.log(values)
         axios.post(signupURI, values).then((res)=>{
           setisGoing(false)
           setisLoading(false)
