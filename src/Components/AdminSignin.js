@@ -6,6 +6,7 @@ import axios from 'axios'
 import { useNavigate, Link } from 'react-router-dom'
 import { baseUrl } from './URL'
 import {ToastContainer, toast} from "react-toastify"
+import Loader from "react-spinners/BarLoader"
 function AdminSignin() {
   const signinURI = `${baseUrl}/admin/signin`
   const [message, setmessage] = useState('')
@@ -13,6 +14,7 @@ function AdminSignin() {
   const [isLoading, setisLoading] = useState(true)
   const [isGoing, setisGoing] = useState(false)
   const [fEmail, setfEmail] = useState("")
+  const [sending, setsending] = useState(false)
   const navigate = useNavigate()
 
   const toastOption = {position: "top-center", pauseOnHover: true, theme: "colored", autoClose: 8000, closeButton: true}
@@ -48,6 +50,7 @@ function AdminSignin() {
   })
 
   const sendEmail=()=>{
+    setsending(true)
     axios.get(`${baseUrl}/admin/forgotPryKey?email=${fEmail}`).then((res)=>{
       const {message, status} = res.data
             status?
@@ -55,6 +58,8 @@ function AdminSignin() {
               toast.success(message, toastOption)
     }).catch((err)=>{
       toast.error(err.message, toastOption)
+    }).finally(()=>{
+      setsending(false)
     })
 
 }
@@ -127,6 +132,7 @@ function AdminSignin() {
                   <div className="modal-header">
                     <h5 className="modal-title" id="exampleModalLabel">Recover Private Key</h5>
                    </div>
+                    <Loader width={"100%"} color={"orangered"} loading= {sending}/>
                   <div className="modal-body">
                     <div className=''>
                     <i>
@@ -137,6 +143,7 @@ function AdminSignin() {
                     </div>
                   </div>
                   <div className="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" className={`btn btn-primary ${!!(fEmail)?"": 'disabled'}`} onClick={sendEmail}>Send</button>
                   </div>
                 </div>

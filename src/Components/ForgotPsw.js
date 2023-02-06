@@ -23,7 +23,7 @@ function ForgotPsw() {
           setresMessage(message)
        }).catch((err)=>{
           setresStatus(false)
-          setresMessage(err.message)
+          setresMessage(`${err.message}: Please check your connection!`)
        }).finally(()=>{
             setisLoading(false)
        })
