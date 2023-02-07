@@ -23,10 +23,9 @@ import useSWR from "swr"
 import Skeleton from "react-skeleton"
 import {CCarousel, CCarouselItem, CImage} from "@coreui/react"
 
-const fetcher = (...args)=> axios.get(...args)
 function AdminHome({ staff }) {
 
-  const {data, error} = useSWR(`${baseUrl}/user/products`, fetcher, {refreshInterval: 1000})
+  const {data, error} = useSWR(`${baseUrl}/user/products`, {refreshInterval: 1000})
 
   const deleteProductURI = `${baseUrl}/admin/deleteProduct`;
   const [message, setmessage] = useState("");

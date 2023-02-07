@@ -113,7 +113,7 @@
     width: 200px;
 }
 
-.cbtn{
+.btnHover{
     display: none !important;
 }
 .card-col:hover .btnHover{
@@ -230,9 +230,13 @@ input[type=number]::-webkit-inner-spin-button {
     border-style: dashed solid;
     cursor: pointer;
 }
+@media screen and (max-width: 1450px){
+    .btnHover{
+        display: block !important;
+    }
+}
 
 @media screen and (max-width: 890px) and (min-width: 50px) {
- 
     .carousel_img {
         height: 40vh !important;
     }

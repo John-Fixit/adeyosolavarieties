@@ -54,7 +54,7 @@ function LandingPage() {
           <div className={`card-footer`}>
             <button
               type="button"
-              className="btn cbtn bgs btnHover text-light w-100"
+              className="btn bgs btnHover text-light w-100"
               onClick={() => getInTouch(eachProduct.title)}
             >
               Buy
@@ -209,10 +209,10 @@ function LandingPage() {
                           <Skeleton type="text-md" width={180} />
                         </p>
                       </div>
-                      <div className="card-footer justify-content-between d-flex ">
+                      <div className="card-footer">
                         <Skeleton width={`100%`} height={45} />
                       </div>
-                      <div className="btn-group"></div>
+                     
                     </div>
                   </div>
                 );

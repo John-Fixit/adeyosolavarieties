@@ -16,17 +16,7 @@ function ForgotPsw() {
       email: "",
     },
     onSubmit: (values) => {
-      setisLoading(true)
-       axios.post(`${baseUrl}/admin/forgotPsw`, values).then((res)=>{
-          let {message, status} = res.data
-          setresStatus(status)
-          setresMessage(message)
-       }).catch((err)=>{
-          setresStatus(false)
-          setresMessage(`${err.message}: Please check your connection!`)
-       }).finally(()=>{
-            setisLoading(false)
-       })
+      sendForgotPswQuery(values)
     },
     validationSchema: yup.object({
       email: yup
@@ -35,6 +25,20 @@ function ForgotPsw() {
         .email("Please input a valid email"),
     }),
   });
+
+  const sendForgotPswQuery=(val)=>{
+    setisLoading(true)
+    axios.post(`${baseUrl}/admin/forgotPsw`, val).then((res)=>{
+      let {message, status} = res.data
+      setresStatus(status)
+      setresMessage(message)
+   }).catch((err)=>{
+      setresStatus(false)
+      setresMessage(`${err.message}: Please check your connection!`)
+   }).finally(()=>{
+        setisLoading(false)
+   })
+  }
   return (
     <>
       <div className="forgotPswContainer">
@@ -77,6 +81,12 @@ function ForgotPsw() {
                   ) : (
                     ""
                   )}
+                </div>
+                <div className="col-12 my-3">
+                  {
+                  resStatus!=undefined &&
+                  <i>Do not get any link? <Link to={''} onClick={()=>sendForgotPswQuery({email: formik.values.email})}>Resend</Link></i>
+                }
                 </div>
                 <div className="col-12 my-3">
                     <i>Remebered your password? <Link to={'/admin_login'} >Login</Link></i>

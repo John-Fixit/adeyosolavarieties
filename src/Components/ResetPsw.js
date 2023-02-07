@@ -14,7 +14,7 @@ import Loader from "react-spinners/BarLoader"
 
 function ResetPsw() {
   const [isLoading, setisLoading] = useState(false)
-  const [resStatus, setresStatus] = useState(true)
+  const [resStatus, setresStatus] = useState(false)
     const paramsRouter = useParams()
   const ref = useRef()
     const toastOption = {position: "top-center", pauseOnHover: true, theme: "colored", autoClose: 8000, closeButton: true}

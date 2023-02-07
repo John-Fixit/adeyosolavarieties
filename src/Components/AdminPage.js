@@ -55,9 +55,9 @@ function AdminPage() {
         })
 
       } else {
-        localStorage.removeItem('admintoken')
-        localStorage.removeItem('adminInfo')
-        navigate('/admin_login')
+        // localStorage.removeItem('admintoken')
+        // localStorage.removeItem('adminInfo')
+        // navigate('/admin_login')
       }
     })
   }

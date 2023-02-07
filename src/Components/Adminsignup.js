@@ -23,7 +23,7 @@ function Adminsignup({username}) {
       profilePhoto: '',
       username: '',
       password: '',
-      addedBy: username? username: "username",
+      addedBy: username? username: "Admin",
       privateKey: '',
       role: 'Admin'
     },
