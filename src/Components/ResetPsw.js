@@ -86,7 +86,7 @@ function ResetPsw() {
                 </div>
         
                 <div className="m-4">
-                <button type="submit" className="btn btnbg rounded-pill w-100">CREATE</button>
+                <button type="submit" className="btn bgs rounded-pill w-100">CREATE</button>
                 </div>
 
               </form>

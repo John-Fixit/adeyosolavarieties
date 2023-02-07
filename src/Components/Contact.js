@@ -51,7 +51,7 @@ function Contact() {
   return (
     <>
       <div className="col-12 cont_fluid">
-        <h2 className="btnbg text-center text-light py-2">
+        <h2 className="bgs text-center text-light py-2">
           Contact Adeyodola Varieties
         </h2>
         <div className="container mt-2">
@@ -163,7 +163,7 @@ function Contact() {
                   style={{resize: "none"}}
                 ></textarea>
                 <button
-                  className="btn btnbg mt-3 text-light p-2 float-end"
+                  className="btn bgs mt-3 text-light p-2 float-end"
                   type="submit"
                 >
                   {isGoing ? (
@@ -178,7 +178,7 @@ function Contact() {
             </div>
             <Link
               to="/homepage"
-              className="text-decoration-none border p-2 rounded-3 btnbg text-white"
+              className="text-decoration-none border p-2 rounded-3 bgs text-white"
             >
               <FaArrowAltCircleLeft /> Go to Home
             </Link>

@@ -26,7 +26,7 @@ function StaffLogin() {
       },
       onSubmit: (values) => {
         setisGoing(true)
-        axios.post(signinURI, values).then((res) => {
+        axios.post(signinURI, {email: values.email, privateKey: values.password}).then((res) => {
           setisLoading(false)
           setisGoing(false)
           const responseFromServer = res.data

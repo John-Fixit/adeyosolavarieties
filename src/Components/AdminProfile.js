@@ -204,7 +204,7 @@ function AdminProfile() {
                                             </div>
                                             <div className="modal-footer">
                                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={closeModal}>Close</button>
-                                                <button type="button" className="btn btnbg text-light" data-bs-dismiss="modal" disabled={disBtn} onClick={deleteAccount}>{isGoing ? <div className="spinner-border text-light opacity-50" role="status">
+                                                <button type="button" className="btn bgs text-light" data-bs-dismiss="modal" disabled={disBtn} onClick={deleteAccount}>{isGoing ? <div className="spinner-border text-light opacity-50" role="status">
                                                     <span className="visually-hidden">Loading...</span>
                                                 </div> : 'Proceed and Delete'}</button>
                                             </div>

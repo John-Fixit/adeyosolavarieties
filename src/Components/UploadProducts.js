@@ -142,7 +142,7 @@ function UploadProducts({ adminDetail }) {
               </div>
               <div className="col-sm-12">
                 <button
-                  className="btn btnbg w-100 mt-3 text-light fs-5"
+                  className="btn bgs w-100 mt-3 text-light fs-5"
                   onClick={uploadProduct}
                 >
                   {isGoing ? (

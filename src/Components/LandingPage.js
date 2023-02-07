@@ -18,6 +18,7 @@ import useSWR from "swr";
 function LandingPage() {
   const { data, error } = useSWR(`${baseUrl}/user/products`);
   const [pageNumber, setpageNumber] = useState(0);
+  const [t, sett] = useState(false)
   const productPerPage = 12;
   const productDisplayed = productPerPage * pageNumber;
   useEffect(() => {
@@ -32,14 +33,14 @@ function LandingPage() {
     .slice(productDisplayed, productDisplayed + productPerPage)
     .map((eachProduct, index) => (
       <div
-        className="col-lg-3 col-md-6 col-sm-12 mt-3"
+        className="col-lg-3 col-md-6 col-sm-12 mt-3 card-col"
         data-aos="fade-down"
         key={index}
       >
         <div className="card shadow p-2 h-100">
           <img
             src={eachProduct.image}
-            className="card-img-top  mx-auto shadow w-75"
+            className={`card-img-top  mx-auto shadow w-75`}
             alt="products"
           />
           <div className="card-body">
@@ -50,13 +51,13 @@ function LandingPage() {
             </p>
           
           </div>
-          <div className="card-footer" data-aos="fade-out-top">
+          <div className={`card-footer`}>
             <button
               type="button"
-              className="btn btnbg btnHover text-light w-100"
+              className="btn cbtn bgs btnHover text-light w-100"
               onClick={() => getInTouch(eachProduct.title)}
             >
-              Click Me
+              Buy
             </button>
           </div>
         </div>
@@ -222,8 +223,8 @@ function LandingPage() {
                   <div className="row">
                     {displayProduct}
                     <ReactPaginate
-                      previousLabel={"Previous"}
-                      nextLabel={"Next"}
+                      previousLabel={<span aria-hidden="true" className="fw-bold">&laquo;</span>}
+                      nextLabel={<span aria-hidden="true" className="fw-bold">&raquo;</span>}
                       pageCount={countPage}
                       onPageChange={changePage}
                       containerClassName={"paginateBtns"}
@@ -247,11 +248,7 @@ function LandingPage() {
       >
         <FaWhatsapp size="3.5vh" /> Chat with us
       </a>
-      {/* <AdSense.Google
-    client='ca-pub-7640795686308536'
-    slot='5347541763'
-    
-/> */}
+     
     </>
   );
 }

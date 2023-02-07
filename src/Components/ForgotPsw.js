@@ -85,7 +85,7 @@ function ForgotPsw() {
                   {
                       isLoading?
                       <Loader loading={isLoading} color={"orangered"} size={25} cssOverride={{margin: "0 auto"}}/>:
-                      <button type="submit" className="btn btnbg rounded-pill w-100">NEXT</button>
+                      <button type="submit" className="btn bgs rounded-pill w-100">NEXT</button>
                   }
                 </div>
 

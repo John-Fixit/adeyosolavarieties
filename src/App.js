@@ -14,7 +14,6 @@ function App() {
 
   const fetcher = (...args)=> axios.get(...args) 
 
-
   return (
     <>
 

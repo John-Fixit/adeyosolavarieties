@@ -52,7 +52,7 @@ function CustomerList({ staff, adminDetail }) {
                     <td>{eachOne.username}</td>
                     <td>{eachOne.role}</td>
                     <td>{eachOne.addedBy ? eachOne.addedBy : 'Not Registered'}</td>
-                    <td><button className='btn btnbg text-white' onClick={() => staffDlt({ staffId: eachOne._id })}><FaTrashAlt /></button></td>
+                    <td><button className='btn bgs text-white' onClick={() => staffDlt({ staffId: eachOne._id })}><FaTrashAlt /></button></td>
                   </tr>
                 ))
               }

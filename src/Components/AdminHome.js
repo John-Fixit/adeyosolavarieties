@@ -20,9 +20,8 @@ import { baseUrl } from "./URL";
 import {toast, ToastContainer} from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 import useSWR from "swr"
-import Loader from "react-spinners/HashLoader";
 import Skeleton from "react-skeleton"
-
+import {CCarousel, CCarouselItem, CImage} from "@coreui/react"
 
 const fetcher = (...args)=> axios.get(...args)
 function AdminHome({ staff }) {
@@ -98,7 +97,7 @@ function AdminHome({ staff }) {
           <div className="card-footer btn-group">
             <button
               type="button"
-              className="btn btnbg text-light w-100 btnHover"
+              className="btn bgs text-light w-100 btnHover"
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
               onClick={() =>
@@ -113,7 +112,7 @@ function AdminHome({ staff }) {
             </button>
             <button
               type="button"
-              className="btn btnbg text-light w-100 btnHover"
+              className="btn bgs text-light w-100 btnHover"
               data-bs-toggle="modal"
               data-bs-target="#editModal"
               onClick={() =>
@@ -153,96 +152,37 @@ function AdminHome({ staff }) {
   return (
     <>
       <div className="container-fluid cont_fluid">
-        {/* <div
-          id="carouselExampleCaptions"
-          className="carousel slide carousel-fade"
-          data-bs-ride="carousel"
-        >
-          <div className="carousel-indicators">
-            <button
-              type="button"
-              data-bs-target="#carouselExampleCaptions"
-              data-bs-slide-to="0"
-              className="active"
-            ></button>
-            <button
-              type="button"
-              data-bs-target="#carouselExampleCaptions"
-              data-bs-slide-to="1"
-            ></button>
-            <button
-              type="button"
-              data-bs-target="#carouselExampleCaptions"
-              data-bs-slide-to="2"
-            ></button>
-          </div>
-          <div className="carousel-inner">
-            <div className="carousel-item">
-              <div className="d-flex">
-                <img src={img1} className="d-block" width="25%" alt="..." />
-                <img src={img2} className="d-block" width="25%" alt="..." />
-                <img src={img5} className="d-block" width="25%" alt="..." />
-                <img src={img4} className="d-block" width="25%" alt="..." />
+      <CCarousel controls transition="crossfade">
+  <CCarouselItem>
+    <div className="d-flex">
+    <CImage className="d-block" width={"25%"} src={img1} alt="slide 1" />
+    <CImage className="d-block" width={"25%"} src={img2} alt="slide 1" />
+    <CImage className="d-block" width={"25%"} src={img5} alt="slide 1" />
+    <CImage className="d-block" width={"25%"} src={img4} alt="slide 1" />
               </div>
-              <div className="carousel-caption d-none d-md-block">
-                <h5></h5>
-                <p></p>
+  </CCarouselItem>
+  <CCarouselItem>
+  <div className="d-flex">
+    <CImage className="d-block" width={"25%"} src={img5} alt="slide 1" />
+    <CImage className="d-block" width={"25%"} src={img1} alt="slide 1" />
+    <CImage className="d-block" width={"25%"} src={img2} alt="slide 1" />
+    <CImage className="d-block" width={"25%"} src={img7} alt="slide 1" />
               </div>
-            </div>
-            <div className="carousel-item">
-              <div className="d-flex">
-                <img src={img5} className="d-block " width="25%" alt="..." />
-                <img src={img1} className="d-block " width="25%" alt="..." />
-                <img src={img2} className="d-block " width="25%" alt="..." />
-                <img src={img7} className="d-block " width="25%" alt="..." />
+  </CCarouselItem>
+  <CCarouselItem>
+       <div className="d-flex">
+    <CImage className="d-block" width={"25%"} src={img4} alt="slide 1" />
+    <CImage className="d-block" width={"25%"} src={img7} alt="slide 1" />
+    <CImage className="d-block" width={"25%"} src={img1} alt="slide 1" />
+    <CImage className="d-block" width={"25%"} src={img2} alt="slide 1" />
               </div>
-              <div className="carousel-caption d-none d-md-block">
-                <h5></h5>
-                <p></p>
-              </div>
-            </div>
-            <div className="carousel-item">
-              <div className="d-flex">
-                <img src={img4} className="d-block" width="25%" alt="..." />
-                <img src={img7} className="d-block" width="25%" alt="..." />
-                <img src={img1} className="d-block" width="25%" alt="..." />
-                <img src={img2} className="d-block" width="25%" alt="..." />
-              </div>
-            </div>
-          </div>
-          <button
-            className="carousel-control-prev"
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="prev"
-          >
-            <span
-              className="carousel-control-prev-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">Previous</span>
-          </button>
-          <button
-            className="carousel-control-next"
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="next"
-          >
-            <span
-              className="carousel-control-next-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">Next</span>
-          </button>
-        </div> */}
-
-
-
-
+  </CCarouselItem>
+</CCarousel>
+        
         <div className="col-sm-12 products_row">
           <div className="row">
             <div className="col-md-6 col-sm-12 mt-3">
-              <div className="card shadow h-100 btnbg rounded p-3 text-white">
+              <div className="card shadow h-100 bgs rounded p-3 text-white">
                 <FaUserAstronaut size="4vh" className="mx-auto" />
                 <h3 className="card-title">
                   Total Staff (s) :{" "}
@@ -312,13 +252,15 @@ function AdminHome({ staff }) {
             <div className="row">
               {displayProducts}
               <ReactPaginate
-                previousLabel={"Previous"}
-                nextLabel={"Next"}
+                previousLabel={<span aria-hidden="true" className="fw-bold">&laquo;</span>}
+                nextLabel={ <span aria-hidden="true" className="fw-bold">&raquo;</span>}
                 pageCount={countPage}
                 onPageChange={changePage}
                 containerClassName={"paginateBtns"}
                 activeClassName={"paginateActive"}
               />
+
+
             </div>
           </div>
         )}
@@ -361,8 +303,8 @@ function AdminHome({ staff }) {
                     type="button"
                     className={
                       isComing
-                        ? "btn btnbg disabled text-light"
-                        : "btn btnbg  text-light"
+                        ? "btn bgs disabled text-light"
+                        : "btn bgs  text-light"
                     }
                     data-bs-dismiss="modal"
                     onClick={deleteProduct}
@@ -430,7 +372,7 @@ function AdminHome({ staff }) {
                 </button>
                 <button
                   type="button"
-                  className="btn btnbg text-light"
+                  className="btn bgs text-light"
                   data-bs-dismiss='modal'
                   onClick={saveChanges}
                 >

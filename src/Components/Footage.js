@@ -2,7 +2,7 @@ import React from 'react'
 import { FaFacebook, FaInstagram, FaLinkedin, FaTelegram, FaWhatsapp} from 'react-icons/fa'
 function Footage() {
     return (
-        <footer className="page-footer font-small sticky-bottom">
+        <footer className="page-footer font-small">
             <div className="container">
                 <hr className="rgba-white-light" />
                 <div className="row pb-2">

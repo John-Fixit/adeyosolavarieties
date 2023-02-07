@@ -1,13 +1,12 @@
 import React from "react";
 import { FaArrowRight, FaPen } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
-import "./getInTouchBtn.css"
 function About() {
   const location = useLocation().pathname.split('/')
   return (
     <>
       <div className="col-12 cont_fluid">
-        <h2 className="btnbg text-center text-light py-2">
+        <h2 className="bgs text-center text-light py-2">
           About Adeyosola Ventures
         </h2>
         <div className="col-12 p-3 text-justify-end">
@@ -40,7 +39,7 @@ function About() {
          location[1]== "staff"?"": (location[1] == 'admin'? "":
         <Link
           to="/contact"
-          className="button text-decoration-none btn btnbg text-light mx-3 fw-bold arr_left"
+          className="button text-decoration-none btn bgs text-light mx-3 fw-bold arr_left"
         >
           Get in Touch <span className="arr_left"><FaArrowRight /></span>
 
