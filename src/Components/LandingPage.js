@@ -10,7 +10,6 @@ import img2 from "../Images/bgImg2.jpg";
 import img3 from "../Images/bgImg3.jpg";
 import ReactPaginate from "react-paginate";
 import Typewriter from "typewriter-effect";
-import AdSense from "react-adsense";
 import { baseUrl } from "./URL";
 import Skeleton from "react-skeleton";
 import CurrencyFormat from "react-currency-format"
@@ -248,7 +247,8 @@ function LandingPage() {
       >
         <FaWhatsapp size="3.5vh" /> Chat with us
       </a>
-     
+     <Link to={'/admin_login'}>Admin SignIn</Link><br/>
+     <Link to={'/staff_login'}>Staff SignIn</Link>
     </>
   );
 }
