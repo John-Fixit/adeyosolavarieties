@@ -16,7 +16,19 @@ function ForgotPsw() {
       email: "",
     },
     onSubmit: (values) => {
-      sendForgotPswQuery(values)
+      // sendForgotPswQuery(values)
+      setisLoading(true)
+      axios.post(`${baseUrl}/admin/forgotPsw`, values).then((res)=>{
+        let {message, status} = res.data
+        setresStatus(status)
+        setresMessage(message)
+     }).catch((err)=>{
+      console.log(err)
+        setresStatus(false)
+        setresMessage(`${err.message}: Please check your connection!`)
+     }).finally(()=>{
+          setisLoading(false)
+     })
     },
     validationSchema: yup.object({
       email: yup
@@ -27,17 +39,17 @@ function ForgotPsw() {
   });
 
   const sendForgotPswQuery=(val)=>{
-    setisLoading(true)
-    axios.post(`${baseUrl}/admin/forgotPsw`, val).then((res)=>{
-      let {message, status} = res.data
-      setresStatus(status)
-      setresMessage(message)
-   }).catch((err)=>{
-      setresStatus(false)
-      setresMessage(`${err.message}: Please check your connection!`)
-   }).finally(()=>{
-        setisLoading(false)
-   })
+  //   setisLoading(true)
+  //   axios.post(`${baseUrl}/admin/forgotPsw`, val).then((res)=>{
+  //     let {message, status} = res.data
+  //     setresStatus(status)
+  //     setresMessage(message)
+  //  }).catch((err)=>{
+  //     setresStatus(false)
+  //     setresMessage(`${err.message}: Please check your connection!`)
+  //  }).finally(()=>{
+  //       setisLoading(false)
+  //  })
   }
   return (
     <>
@@ -85,7 +97,7 @@ function ForgotPsw() {
                 <div className="col- my-3">
                   {
                   resStatus!=undefined &&
-                  <i>Do not get any link? <Link to={''} onClick={()=>sendForgotPswQuery({email: formik.values.email})}>Resend</Link></i>
+                  <i>Do not get any link? <Link to={''} onClick={()=>formik.handleSubmit({email: formik.values.email})}>Resend</Link></i>
                 }
                 </div>
                 <div className="col- my-3">
