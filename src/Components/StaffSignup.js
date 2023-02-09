@@ -1,11 +1,11 @@
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import style from './style.css'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
 import axios from 'axios'
 import { baseUrl } from './URL'
-function StaffSignup() {
+function StaffSignup({username}) {
     const passRegex = /^[\w]{6,}$/
     const contactRegex = /^[0][\d]{10}$/
     const signupURI = `${baseUrl}/admin/staffSignup`
@@ -22,7 +22,8 @@ function StaffSignup() {
         gender: '',
         profilePhoto: '',
         username: '',
-        addedBy: 'Admin',
+        password: "10119",
+        addedBy: username? username: "Admin",
         role: 'Staff'
       },
       onSubmit: (values) => {
@@ -52,13 +53,13 @@ function StaffSignup() {
   <>
   <div className='container cont_fluid'>
         <div className='row'>
-        <div className='col-6 bgs text-center pt-5'>
+        <div className='col-sm-6 bgs text-center pt-5'>
             <div className='mt-5'>
               <h1 className='text-light'>STAFF SIGN UP PAGE</h1>
               <p className='text-light'>Create account for another staff</p>
             </div>
           </div>
-          <div className='col-6'>
+          <div className='col-sm-6'>
             <div className='form'>
               <form action='' onSubmit={formik.handleSubmit}>
                 <h2 className='card-header text-center text-muted'>Create staff account</h2>

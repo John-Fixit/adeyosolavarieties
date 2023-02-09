@@ -96,7 +96,7 @@ function AdminHome({ staff }) {
           <div className="card-footer btn-group">
             <button
               type="button"
-              className="btn bgs text-light w-100 btnHover"
+              className="btn bgs text-light w-100"
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
               onClick={() =>
@@ -111,7 +111,7 @@ function AdminHome({ staff }) {
             </button>
             <button
               type="button"
-              className="btn bgs text-light w-100 btnHover"
+              className="btn bgs text-light w-100"
               data-bs-toggle="modal"
               data-bs-target="#editModal"
               onClick={() =>

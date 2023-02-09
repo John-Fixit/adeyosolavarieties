@@ -28,7 +28,8 @@ function CustomerList({ staff, adminDetail }) {
       <p className='card-header fs-4 text-center text-muted'>Registered Staff List</p>
       {
         staff.length < 1 ? <p >No staff yet</p> :
-          <table className="table table-hover table-responsive">
+        <div className='table-responsive'>
+          <table className="table table-hover">
             <thead className='text-center text-muted'>
               <th>S/N</th>
               <th>Firstname</th>
@@ -58,6 +59,7 @@ function CustomerList({ staff, adminDetail }) {
               }
             </tbody>
           </table>
+          </div>
       }
     </div>
   )

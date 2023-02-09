@@ -13,6 +13,8 @@ function Adminsignup({username}) {
   const [message, setmessage] = useState('')
   const [status, setstatus] = useState(false)
   const [isGoing, setisGoing] = useState(false)
+
+  let roundNum = Math.floor(Math.random()*1000000)
   const formik = useFormik({
     initialValues: {
       firstname: '',
@@ -24,7 +26,7 @@ function Adminsignup({username}) {
       username: '',
       password: '',
       addedBy: username? username: "Admin",
-      privateKey: '',
+      privateKey: roundNum,
       role: 'Admin'
     },
     onSubmit: (values) => {

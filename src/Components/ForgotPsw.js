@@ -82,13 +82,13 @@ function ForgotPsw() {
                     ""
                   )}
                 </div>
-                <div className="col-12 my-3">
+                <div className="col- my-3">
                   {
                   resStatus!=undefined &&
                   <i>Do not get any link? <Link to={''} onClick={()=>sendForgotPswQuery({email: formik.values.email})}>Resend</Link></i>
                 }
                 </div>
-                <div className="col-12 my-3">
+                <div className="col- my-3">
                     <i>Remebered your password? <Link to={'/admin_login'} >Login</Link></i>
                 </div>
                 <div className="m-4">
