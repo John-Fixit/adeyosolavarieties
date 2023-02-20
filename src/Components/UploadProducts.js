@@ -95,6 +95,7 @@ function UploadProducts({ adminDetail }) {
                   className="form-control d-none"
                   placeholder="Title of The product"
                   id="productFile"
+                  multiple= {true}
                   onChange={(e) => selectProduct(e)}
                 />
                 <p className={`${selected? "productSelected": "productNotSelected"}`}></p>

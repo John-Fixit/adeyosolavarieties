@@ -10,13 +10,15 @@ import { SWRConfig } from 'swr'
 import axios from 'axios'
 import ForgotPsw from './Components/ForgotPsw'
 import ResetPsw from './Components/ResetPsw'
+import {Helmet, HelmetProvider} from "react-helmet-async"
 function App() {
 
   const fetcher = (...args)=> axios.get(...args) 
-
+const helmetContext = {}
   return (
     <>
 
+<HelmetProvider context={helmetContext}>
     <SWRConfig value={{fetcher:fetcher}}>
       <Routes>
         <Route path='/*' element={<AppLandingRoute />} />
@@ -30,6 +32,7 @@ function App() {
         
       </Routes>
     </SWRConfig>
+</HelmetProvider>
     </>
 
     //https://wa.me/<number>

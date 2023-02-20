@@ -74,6 +74,7 @@ function AdminHome({ staff }) {
     seteditPrice(thisProduct.Price);
     seteditRate(thisProduct.Rate);
     seteditId(thisProduct.Id);
+    
   };  
 
   const displayProducts = data?.data.result
@@ -103,6 +104,7 @@ function AdminHome({ staff }) {
                 modalOut({
                   productId: eachProduct._id,
                   productTitle: eachProduct.title,
+                  productURL: eachProduct.image
                 })
               }
             >

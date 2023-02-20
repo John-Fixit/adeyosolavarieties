@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import style from "./style.css";
 import axios from "axios";
-import { FaWhatsapp } from "react-icons/fa";
+import { FaSignInAlt, FaSignOutAlt, FaWhatsapp } from "react-icons/fa";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import img1 from "../Images/bgImg1.jpg";
@@ -12,12 +12,13 @@ import ReactPaginate from "react-paginate";
 import Typewriter from "typewriter-effect";
 import { baseUrl } from "./URL";
 import Skeleton from "react-skeleton";
-import CurrencyFormat from "react-currency-format"
+import CurrencyFormat from "react-currency-format";
 import useSWR from "swr";
-function LandingPage() {
+import { Helmet } from "react-helmet-async";
+function LandingPage({title, type, description, name}) {
   const { data, error } = useSWR(`${baseUrl}/user/products`);
   const [pageNumber, setpageNumber] = useState(0);
-  const [t, sett] = useState(false)
+  const [t, sett] = useState(false);
   const productPerPage = 12;
   const productDisplayed = productPerPage * pageNumber;
   useEffect(() => {
@@ -46,9 +47,15 @@ function LandingPage() {
             <h6 className="card-title text-start">{eachProduct.title}</h6>
             <p className="rate">RATE: {eachProduct.rating}</p>
             <p className="card-text text-start">
-              Price : <CurrencyFormat value={eachProduct.price} thousandSeparator={true} displayType={"text"} prefix={"NGN "}/> <span>per product</span>
+              Price :{" "}
+              <CurrencyFormat
+                value={eachProduct.price}
+                thousandSeparator={true}
+                displayType={"text"}
+                prefix={"NGN "}
+              />{" "}
+              <span>per product</span>
             </p>
-          
           </div>
           <div className={`card-footer`}>
             <button
@@ -70,6 +77,27 @@ function LandingPage() {
 
   return (
     <>
+      <Helmet>
+        <title>Adeyosola varieties</title>
+        <meta
+          name="description"
+          content={
+            "Deals with affordable and quality unisex wears such as roundneck, polo, Jean, joggers, armless,gown, Jalab, abaya, lingeries... Also we sell interior decorations,kitchen equipments, electronic gadgets and lots more"
+          }
+        />
+         <meta name="description" content={description} />
+        {/* End standard metadata tags */}
+        {/* Facebook tags */}
+        <meta property="og:type" content={type} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        {/* End Facebook tags */}
+        {/* Twitter tags */}
+        <meta name="twitter:creator" content={name} />
+        <meta name="twitter:card" content={type} />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+      </Helmet>
       <div className="container-fluid cont_fluid">
         <div className="products_row">
           <div className="landingpageText col-12">
@@ -186,44 +214,53 @@ function LandingPage() {
               {data?.data.result.length ? "Product Available" : ""}
             </p>
 
-            {!data? (
-              Array(8).fill('skeleton').map((_) => {
-                return (
-                  <div className="col-lg-3 col-md-6 col-sm-12 mt-3">
-                    <div className="card shadow-lg p-2 h-100">
-                      <Skeleton
-                        type="thumbnail"
-                        height={200}
-                        className="card-img-top"
-                      />
+            {!data ? (
+              Array(8)
+                .fill("skeleton")
+                .map((_) => {
+                  return (
+                    <div className="col-lg-3 col-md-6 col-sm-12 mt-3">
+                      <div className="card shadow-lg p-2 h-100">
+                        <Skeleton
+                          type="thumbnail"
+                          height={200}
+                          className="card-img-top"
+                        />
 
-                      <div className="card-body">
-                        <h6 className="card-title text-start">
-                          <Skeleton type="text-lg" width={250} />
-                        </h6>
-                        <p className="card-text text-start">
-                          <Skeleton type="text-lg" width={200} />
-                        </p>
-                        <p className="rate">
-                          <Skeleton type="text-md" width={180} />
-                        </p>
+                        <div className="card-body">
+                          <h6 className="card-title text-start">
+                            <Skeleton type="text-lg" width={250} />
+                          </h6>
+                          <p className="card-text text-start">
+                            <Skeleton type="text-lg" width={200} />
+                          </p>
+                          <p className="rate">
+                            <Skeleton type="text-md" width={180} />
+                          </p>
+                        </div>
+                        <div className="card-footer">
+                          <Skeleton width={`100%`} height={45} />
+                        </div>
                       </div>
-                      <div className="card-footer">
-                        <Skeleton width={`100%`} height={45} />
-                      </div>
-                     
                     </div>
-                  </div>
-                );
-              })
-            ) : 
+                  );
+                })
+            ) : (
               <div className="">
                 {data?.data.result.length ? (
                   <div className="row">
                     {displayProduct}
                     <ReactPaginate
-                      previousLabel={<span aria-hidden="true" className="fw-bold">&laquo;</span>}
-                      nextLabel={<span aria-hidden="true" className="fw-bold">&raquo;</span>}
+                      previousLabel={
+                        <span aria-hidden="true" className="fw-bold">
+                          &laquo;
+                        </span>
+                      }
+                      nextLabel={
+                        <span aria-hidden="true" className="fw-bold">
+                          &raquo;
+                        </span>
+                      }
                       pageCount={countPage}
                       onPageChange={changePage}
                       containerClassName={"paginateBtns"}
@@ -236,7 +273,7 @@ function LandingPage() {
                   </div>
                 )}
               </div>
-            }
+            )}
           </div>
         </div>
       </div>
@@ -247,8 +284,15 @@ function LandingPage() {
       >
         <FaWhatsapp size="3.5vh" /> Chat with us
       </a>
-     <Link to={'/admin_login'}>Admin SignIn</Link><br/>
-     <Link to={'/staff_login'}>Staff SignIn</Link>
+      <div className="px-3 d-flex justify-content-between">
+        <Link to={"/admin_login"} className="textColor forgotPsw">
+          Admin SignIn <FaSignInAlt />
+        </Link>
+        <br />
+        <Link to={"/staff_login"} className="textColor forgotPsw">
+          <FaSignOutAlt /> Staff SignIn
+        </Link>
+      </div>
     </>
   );
 }
